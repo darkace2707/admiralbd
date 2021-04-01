@@ -60,24 +60,4 @@ public class SpringConfig implements WebMvcConfigurer {
 
         registry.viewResolver(resolver);
     }
-
-//    @Bean
-//    public DataSource dataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//
-//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUrl("jdbc:mysql://10.0.0.107:3306/admiral");
-//        dataSource.setUsername("dan");
-//        dataSource.setPassword("1234asdd");
-//
-//        return dataSource;
-//    }
-//
-//    @Bean
-//    public JdbcTemplate jdbcTemplate() {
-//        return new JdbcTemplate(dataSource());
-//    }
-
-//    @Autowired
-//    private final JdbcTemplate jdbcTemplate;
 }
