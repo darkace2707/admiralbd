@@ -17,7 +17,6 @@ public class DepartureDAO {
     }
 
     public Integer getDeparturesCountWithDepartureWay(String departureWay) {
-        System.out.println("depW: " + departureWay);
         return jdbcTemplate.queryForObject("SELECT count(*) FROM departures WHERE DepartureWay = ?",
                 new Object[]{departureWay}, Integer.class);
     }
