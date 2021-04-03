@@ -1,4 +1,4 @@
-package ru.admiral.nsk.admiralbd.models;
+package ru.admiralnsk.admiralbd.models;
 
 public class StringWrapper {
     private String value;
