@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeparturesCount {
+public class MainFormData {
 
-    private String key;
-    private Integer value;
+    private String departureWay;
+    private String consignor;
 }
