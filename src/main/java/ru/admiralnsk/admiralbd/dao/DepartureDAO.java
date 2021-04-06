@@ -20,4 +20,13 @@ public class DepartureDAO {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM departures WHERE DepartureWay = ?",
                 new Object[]{departureWay}, Integer.class);
     }
+
+    public List<String> getDistinctDepartureWays() {
+        return jdbcTemplate.queryForList("SELECT DISTINCT departureWay FROM departures", String.class);
+    }
+
+    public List<String> getDistinctConsignorsWithDepartureWay(String departureWay) {
+        return jdbcTemplate.queryForList("SELECT DISTINCT consignor FROM departures WHERE departureWay = ?",
+                new Object[]{departureWay},String.class);
+    }
 }

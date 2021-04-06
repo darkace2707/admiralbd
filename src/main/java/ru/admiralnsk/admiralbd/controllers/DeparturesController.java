@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
-import ru.admiralnsk.admiralbd.models.StringWrapper;
+import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorPickHelper;
+
 
 @Controller
 @RequestMapping("/departures")
@@ -21,14 +22,15 @@ public class DeparturesController {
     }
 
     @GetMapping("")
-    public String index(Model model) {
-        model.addAttribute("departureWay", new StringWrapper());
-        return "index";
+    public String main(Model model) {
+        model.addAttribute("formData", new DepartureWayAndConsignorPickHelper());
+        model.addAttribute("departureWays", departureDAO.getDistinctDepartureWays());
+        return "main";
     }
 
-    @GetMapping("/departureWay")
-    public String show(@RequestParam(name = "value") String departureWay, Model model) {
+    @GetMapping("/consignorView")
+    public String show(@RequestParam(name = "departureWay") String departureWay, @RequestParam(name = "consignor") String consignor, Model model) {
         model.addAttribute("count", departureDAO.getDeparturesCountWithDepartureWay(departureWay));
-        return "departureView";
+        return "consignorView";
     }
 }

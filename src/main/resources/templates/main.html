@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>admiralbd</title>
+</head>
+<body>
+<form th:method="GET" th:action="@{/departures/consignorView}" th:object="${formData}">
+    <select disabled name="departureWay" required th:field="*{departureWay}">
+        <option th:value="disabled" selected>Выберите дорогу отправления</option>
+        <option th:each="departureWay : ${departureWays}" th:text="${departureWay}" th:value="${departureWay}">departure way</option>
+    </select>
+
+    <select disabled name="consignor" th:field="*{consignor}">
+        <option selected th:value="disabled">Выберите грузоотправителя</option>
+    </select>
+    <input type="submit" value="Пказать информацию."/>
+</form>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
+</body>
+</html>
