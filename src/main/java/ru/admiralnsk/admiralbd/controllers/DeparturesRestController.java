@@ -10,7 +10,7 @@ import ru.admiralnsk.admiralbd.dao.DepartureDAO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/departures")
+@RequestMapping("/api/departures")
 public class DeparturesRestController {
 
     private final DepartureDAO departureDAO;

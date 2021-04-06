@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
-import ru.admiralnsk.admiralbd.models.MainFormData;
+import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorPickHelper;
 
 
 @Controller
@@ -23,7 +23,7 @@ public class DeparturesController {
 
     @GetMapping("")
     public String main(Model model) {
-        model.addAttribute("formData", new MainFormData());
+        model.addAttribute("formData", new DepartureWayAndConsignorPickHelper());
         model.addAttribute("departureWays", departureDAO.getDistinctDepartureWays());
         return "main";
     }

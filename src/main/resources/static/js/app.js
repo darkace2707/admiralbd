@@ -19,7 +19,7 @@ async function addConsignorsToSelect() {
 
     let departureWay = departureWaySelect.options[departureWaySelect.selectedIndex].value;
 
-    let url = "departures/consignors?departureWay=" + departureWay;
+    let url = "api/departures/consignors?departureWay=" + departureWay;
     let response = await fetch(url);
 
     if (response.ok) {
