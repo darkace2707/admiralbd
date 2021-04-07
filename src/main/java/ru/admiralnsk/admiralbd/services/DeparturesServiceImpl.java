@@ -1,5 +1,6 @@
 package ru.admiralnsk.admiralbd.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
@@ -11,15 +12,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class DeparturesServiceImpl implements DepartureService{
 
     private final DepartureDAO departureDAO;
-
-    @Autowired
-    public DeparturesServiceImpl(DepartureDAO departureDAO) {
-        this.departureDAO = departureDAO;
-    }
 
     @Override
     public Integer getDeparturesCountWithDepartureWay(String departureWay) {
@@ -50,27 +47,18 @@ public class DeparturesServiceImpl implements DepartureService{
 
         int counter = 0;
 
-        int i = 1;
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
-        Iterator<DeparturesCount> iter = departuresCountList.iterator();
-        iter.next();
-        DeparturesCount temp = iter.hasNext() ? iter.next() : new DeparturesCount("13", 0);
-        while (i <= 12) {
-            System.out.println(temp.getKey());
-            if (Integer.parseInt(temp.getKey()) == i) {
-                formattedDeparturesCountList.add(new DeparturesCount(this.getMonthName(i), temp.getValue()));
-                counter += temp.getValue();
-                temp = iter.hasNext() ? iter.next() : new DeparturesCount("13", 0);
-                i++;
-            } else {
-                while (i < Integer.parseInt(temp.getKey())) {
-                    formattedDeparturesCountList.add(new DeparturesCount(this.getMonthName(i), 0));
-                    i++;
-                }
-            }
+        for (int i = 0; i < 12; i++) {
+            formattedDeparturesCountList.add(new DeparturesCount(this.getMonthName(i+1), 0));
+        }
+
+        for (DeparturesCount departuresCount : departuresCountList) {
+            counter += departuresCount.getValue();
+            formattedDeparturesCountList.get(Integer.parseInt(departuresCount.getKey()) - 1).setValue(departuresCount.getValue());
         }
 
         formattedDeparturesCountList.add(new DeparturesCount("Общий Итог", counter));
+
         return formattedDeparturesCountList;
     }
 

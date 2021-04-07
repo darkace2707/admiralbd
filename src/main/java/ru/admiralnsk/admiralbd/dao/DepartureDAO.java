@@ -1,5 +1,6 @@
 package ru.admiralnsk.admiralbd.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,15 +10,11 @@ import ru.admiralnsk.admiralbd.mappers.DeparturesCountMapper;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Component
 public class DepartureDAO {
 
     private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public DepartureDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public Integer getDeparturesCountWithDepartureWay(String departureWay) {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM departures WHERE DepartureWay = ?",
@@ -35,7 +32,7 @@ public class DepartureDAO {
     }
 
     public Integer getDeparturesCountWithDepartureWayAndConsignorByMonth(String departureWay,
-                                                                                       String consignor, int month) {
+                                                                         String consignor, int month) {
         return jdbcTemplate.queryForObject("SELECT count(id) FROM departures " +
                 "WHERE departureWay = ? AND Consignor = ? AND MONTH(DepartureDate) = ?",
                 new Object[]{departureWay, consignor, month}, Integer.class);
