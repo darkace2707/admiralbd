@@ -21,24 +21,20 @@
 </div>
 <div id="Tables">
  <table id="table1" border="1">
-     <tr>
+     <tr class="stroka">
          <th>Месяц</th>
-         <th>Количество</th>
+         <th class="YacheykaKolvo">Количество</th>
      </tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
-     <tr><td>1111111111111</td><td>11111111111111</td></tr>
+     <tr th:each="monthes : ${monthes}">
+         <td  th:text="${monthes}">month</td>
+         <td  th:text="${monthes}">quantity</td>
+     </tr>
  </table>
 
 <table id="table2" border="1">
-    <tr>
-        <th>Название</th>
-        <th>Количество</th>
+    <tr class="stroka">
+        <th><div>Название</div></th>
+        <th class="YacheykaKolvo">Количество</th>
     </tr>
     <tr><td>1111111111111</td><td>11111111111111</td></tr>
     <tr><td>1111111111111</td><td>11111111111111</td></tr>
@@ -51,40 +47,32 @@
 </table>
 
 <table id="table3" border="1">
-    <tr>
+    <tr class="stroka">
         <th>Груз</th>
-        <th>Количество</th>
+        <th class="YacheykaKolvo">Количество</th>
     </tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
+    <tr th:each="monthes : ${monthes}">
+        <td  th:text="${monthes}">month</td>
+        <td  th:text="${monthes}">quantity</td>
+    </tr>
 </table>
 
 <br>
 <table id="table4" border="1">
-    <tr>
+    <tr class="stroka">
         <th>Грузополучатель</th>
-        <th>Количество</th>
+        <th class="YacheykaKolvo">Количество</th>
     </tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
+    <tr th:each="monthes : ${monthes}">
+        <td  th:text="${monthes}">month</td>
+        <td  th:text="${monthes}">quantity</td>
+    </tr>
 </table>
 
 <table id="table5" border="1">
-    <tr>
+    <tr class="stroka">
         <th>Название</th>
-        <th>Количество</th>
+        <th class="YacheykaKolvo">Количество</th>
     </tr>
     <tr><td>1111111111111</td><td>11111111111111</td></tr>
     <tr><td>1111111111111</td><td>11111111111111</td></tr>
@@ -96,18 +84,14 @@
     <tr><td>1111111111111</td><td>11111111111111</td></tr>
 </table>
 <table id="table6" border="1">
-    <tr>
+    <tr class="stroka">
         <th>Вид вагона</th>
-        <th>Количество</th>
+        <th class="YacheykaKolvo">Количество</th>
     </tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
-    <tr><td>1111111111111</td><td>11111111111111</td></tr>
+    <tr th:each="monthes : ${monthes}">
+        <td  th:text="${monthes}">month</td>
+        <td  th:text="${monthes}">quantity</td>
+    </tr>
 </table>
 </div>
 <link th:href="@{/css/app.css}" rel="stylesheet" type="text/css">

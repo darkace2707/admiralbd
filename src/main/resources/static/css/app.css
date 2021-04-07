@@ -4,13 +4,56 @@
 body{
     background-color: #78808f;
 }
+.stroka{
+    margin-top: -30px;
+    position: absolute;
+}
+
+
+                    /* Таблицы*/
 table{
-   margin: 5px 50px;
+   margin: 30px 50px;
     display: inline-block;
     color:white;
     background-color: #3f444d;
+    height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 0px 0px 5px 5px;
+}
+/*Ячейки*/
+th{
+    width:200px;
+    height: 30px;
+
+    background-color:  #2a2f33;
+
+}
+td{
+    padding: 5px;
+   width:200px;
+    height: 30px;
+    border: 1px solid #4d5154;
+}
+.YacheykaKolvo{
+    width: 211px;
 }
 
+/*Прокрутка таблицы*/
+table::-webkit-scrollbar{
+    width: 10px;
+    background-color: #2a2f33;
+
+}
+table::-webkit-scrollbar-thumb{
+    background-color:#3f444d;
+}
+
+#Tables{
+    text-align: center;
+}
+
+                  /*Формы с записями*/
 .badge{
     background-color: #3f444d;
     border-radius: 5px;
@@ -20,18 +63,4 @@ table{
     padding: 5px;
     margin-bottom: 20px;
 }
-th{
-    width:200px;
-    height: 30px;
-    border: 1px solid black;
-}
-td{
-   padding: 5px;
-    width:200px;
-    height: 30px;
-    border: 1px solid black;
-}
 
-#Tables{
-   text-align: center;
-}
