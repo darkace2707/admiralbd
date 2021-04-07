@@ -1,0 +1,37 @@
+*{
+    text-align: center;
+}
+body{
+    background-color: #78808f;
+}
+table{
+   margin: 5px 50px;
+    display: inline-block;
+    color:white;
+    background-color: #3f444d;
+}
+
+.badge{
+    background-color: #3f444d;
+    border-radius: 5px;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 30px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+th{
+    width:200px;
+    height: 30px;
+    border: 1px solid black;
+}
+td{
+   padding: 5px;
+    width:200px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+#Tables{
+   text-align: center;
+}
