@@ -33,15 +33,7 @@ public class DeparturesController {
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
         model.addAttribute("count", departureService.getDeparturesCountWithDepartureWay(departureWay));
-        for (DeparturesCount el : departureService.getConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor)) {
-            System.out.println(el.getKey() + " " + el.getValue());
-        }
-        System.out.println("-----------------------------------------------");
-        long start = System.nanoTime();
-        for (DeparturesCount el : departureService.getDeparturesCountWithDepartureWayAndConsignorByAllMonth(departureWay, consignor)) {
-            System.out.println(el.getKey() + " " + el.getValue());
-        }
-        System.out.println(System.nanoTime() - start);
+
         return "consignorView";
     }
 }

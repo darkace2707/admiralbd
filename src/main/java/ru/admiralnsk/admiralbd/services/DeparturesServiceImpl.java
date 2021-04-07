@@ -111,4 +111,16 @@ public class DeparturesServiceImpl implements DepartureService{
     public List<DeparturesCount> getConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor) {
         return departureDAO.getConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor);
     }
+
+    @Override
+    public List<DeparturesCount> getCargoTypeWithDepartureWayAndConsignor(String departureWay, String consignor) {
+        return departureDAO.getCargoTypeWithDepartureWayAndConsignor(departureWay, consignor);
+    }
+
+    @Override
+    public List<DeparturesCount> getCarriageKindWithDepartureWayAndConsignor(String departureWay, String consignor) {
+        return departureDAO.getCarriageKindWithDepartureWayAndConsignor(departureWay, consignor);
+    }
+
+
 }

@@ -18,4 +18,8 @@ public interface DepartureService {
                                                                                    String consignor);
 
     List<DeparturesCount> getConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor);
+
+    List<DeparturesCount> getCargoTypeWithDepartureWayAndConsignor(String departureWay, String consignor);
+
+    List<DeparturesCount> getCarriageKindWithDepartureWayAndConsignor(String departureWay, String consignor);
 }

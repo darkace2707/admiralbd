@@ -54,4 +54,16 @@ public class DepartureDAO {
                 new Object[]{departureWay, consignor}, new DeparturesCountMapper());
     }
 
+    public List<DeparturesCount> getCargoTypeWithDepartureWayAndConsignor(String departureWay, String consignor) {
+        return jdbcTemplate.query("SELECT CargoType, count(id) FROM departures " +
+                        "WHERE DepartureWay = ? AND Consignor = ? GROUP BY CargoType ORDER BY 2 DESC",
+                new Object[]{departureWay, consignor}, new DeparturesCountMapper());
+    }
+
+    public List<DeparturesCount> getCarriageKindWithDepartureWayAndConsignor(String departureWay, String consignor) {
+        return jdbcTemplate.query("SELECT CarriageKind, count(id) FROM departures " +
+                        "WHERE DepartureWay = ? AND Consignor = ? GROUP BY CarriageKind ORDER BY 2 DESC",
+                new Object[]{departureWay, consignor}, new DeparturesCountMapper());
+    }
+
 }
