@@ -31,8 +31,13 @@ public class DeparturesController {
     @GetMapping("/consignorView")
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
-        model.addAttribute("count", departureService.getDeparturesCountWithDepartureWay(departureWay));
-
+//        model.addAttribute("count", departureService.getDeparturesCountWithDepartureWay(departureWay));
+        model.addAttribute("departureWay", departureWay);
+        model.addAttribute("consignor", consignor);
+        model.addAttribute("monthsCount", departureService.getDeparturesCountWithDepartureWayAndConsignorByAllMonth(departureWay, consignor));
+        model.addAttribute("consigneesCount", departureService.getConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("CargoTypesCount", departureService.getCargoTypeWithDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("CarriageKindsCount", departureService.getCarriageKindWithDepartureWayAndConsignor(departureWay, consignor));
         return "consignorView";
     }
 }

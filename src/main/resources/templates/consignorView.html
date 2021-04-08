@@ -22,10 +22,10 @@
          <th>Месяц</th>
          <th class="CellCount">Количество</th>
      </tr>
-    <!-- <tr th:each="monthes : ${monthes}">
-         <td  th:text="${monthes}">month</td>
-         <td  th:text="${monthes}">quantity</td>
-     </tr>-->
+     <tr th:each="monthCount : ${monthsCount}">
+         <td  th:text="${monthCount.getKey()}">month</td>
+         <td  th:text="${monthCount.getValue()}">quantity</td>
+     </tr>
  </table>
 
 <table id="table2" border="1">
@@ -48,10 +48,10 @@
         <th>Груз</th>
         <th class="CellCount">Количество</th>
     </tr>
-    <!--<tr th:each="monthes : ${monthes}">
-        <td  th:text="${monthes}">month</td>
-        <td  th:text="${monthes}">quantity</td>
-    </tr>-->
+    <tr th:each="consigneeCount : ${consigneesCount}">
+        <td  th:text="${consigneeCount.getKey()}">month</td>
+        <td  th:text="${consigneeCount.getValue()}">quantity</td>
+    </tr>
 </table>
 
 <br>
@@ -60,10 +60,10 @@
         <th>Грузополучатель</th>
         <th class="CellCount">Количество</th>
     </tr>
-   <!-- <tr th:each="monthes : ${monthes}">
-        <td  th:text="${monthes}">month</td>
-        <td  th:text="${monthes}">quantity</td>
-    </tr>-->
+    <tr th:each="CargoTypeCount : ${CargoTypesCount}">
+        <td  th:text="${CargoTypeCount.getKey()}">month</td>
+        <td  th:text="${CargoTypeCount.getValue()}">quantity</td>
+    </tr>
 </table>
 
 <table id="table5" border="1">
@@ -85,10 +85,10 @@
         <th>Вид вагона</th>
         <th class="CellCount">Количество</th>
     </tr>
-    <!--<tr th:each="monthes : ${monthes}">
-        <td  th:text="${monthes}">month</td>
-        <td  th:text="${monthes}">quantity</td>
-    </tr>-->
+    <tr th:each="CarriageKindCount : ${CarriageKindsCount}">
+        <td  th:text="${CarriageKindCount.getKey()}">month</td>
+        <td  th:text="${CarriageKindCount.getValue()}">quantity</td>
+    </tr>
 </table>
 </div>
 </body>
