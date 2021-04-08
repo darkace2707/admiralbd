@@ -33,15 +33,6 @@ public class DeparturesController {
         model.addAttribute("count", departureDAO.getDeparturesCountWithDepartureWay(departureWay));
         model.addAttribute("departureWay", departureWay);
         model.addAttribute("consignor", consignor);
-        model.addAttribute("monthes", departureDAO.getMonthes());
-       // model.addAttribute("cargo", new List<DeparuteCount>);
-       // model.addAttribute("consignee", new List<DeparuteCount>);
-       // model.addAttribute("carriageType", new List<DeparuteCount>);
-        // model.addAttribute("countMonthes", new List<DeparuteCount>);
-        // model.addAttribute("countCargo", new List<DeparuteCount>);
-        // model.addAttribute("countConsignee", new List<DeparuteCount>);
-        // model.addAttribute("countCarriageType", new List<DeparuteCount>);
-
         return "consignorView";
     }
 }

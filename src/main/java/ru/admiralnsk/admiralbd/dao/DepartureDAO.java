@@ -21,13 +21,7 @@ public class DepartureDAO {
         return jdbcTemplate.queryForObject("SELECT count(*) FROM departures WHERE DepartureWay = ?",
                 new Object[]{departureWay}, Integer.class);
     }
-    public List<String> getMonthes() {
-        List<String> monthes = new ArrayList();
-        for (int i = 1; i < 13; i++) {
-            monthes.add("month"+i);
-        }
-        return monthes;
-    }
+
     public List<String> getDistinctDepartureWays() {
         return jdbcTemplate.queryForList("SELECT DISTINCT departureWay FROM departures", String.class);
     }
