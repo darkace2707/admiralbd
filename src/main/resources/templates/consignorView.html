@@ -48,9 +48,9 @@
         <th>Груз</th>
         <th class="CellCount">Количество</th>
     </tr>
-    <tr th:each="consigneeCount : ${consigneesCount}">
-        <td  th:text="${consigneeCount.getKey()}">month</td>
-        <td  th:text="${consigneeCount.getValue()}">quantity</td>
+    <tr th:each="CargoTypeCount : ${CargoTypesCount}">
+        <td  th:text="${CargoTypeCount.getKey()}">month</td>
+        <td  th:text="${CargoTypeCount.getValue()}">quantity</td>
     </tr>
 </table>
 
@@ -60,9 +60,9 @@
         <th>Грузополучатель</th>
         <th class="CellCount">Количество</th>
     </tr>
-    <tr th:each="CargoTypeCount : ${CargoTypesCount}">
-        <td  th:text="${CargoTypeCount.getKey()}">month</td>
-        <td  th:text="${CargoTypeCount.getValue()}">quantity</td>
+    <tr th:each="consigneeCount : ${consigneesCount}">
+        <td  th:text="${consigneeCount.getKey()}">month</td>
+        <td  th:text="${consigneeCount.getValue()}">quantity</td>
     </tr>
 </table>
 
