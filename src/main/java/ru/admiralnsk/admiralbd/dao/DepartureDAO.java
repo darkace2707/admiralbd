@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.mappers.DeparturesCountMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

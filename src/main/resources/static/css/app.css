@@ -1,0 +1,96 @@
+
+body{
+    background-color: #78808f;
+}
+
+
+
+                    /* Таблицы*/
+table{
+   margin: 30px 50px;
+    display: inline-block;
+    color:white;
+    background-color: #3f444d;
+    height: 350px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 5px 0px 5px 5px;
+}
+/*Ячейки*/
+th{
+    width:200px;
+    height: 30px;
+    font-size: 20px;
+    background-color:  #2a2f33;
+    border-radius: 5px 0px 0px 0px;
+    border-right: 1px solid #4d5154;
+
+}
+td{
+    padding: 5px;
+   width:200px;
+    height: 30px;
+    border: 1px solid #4d5154;
+}
+tr:hover{
+    background-color: #525863
+}
+.CellCount{
+    width: 211px;
+    border-radius: 0px 5px 0px 0px;
+    border-right: 0px;
+}
+
+.line1{
+    margin-top: -30px;
+    position: absolute;
+
+
+}
+
+/*Прокрутка таблицы*/
+table::-webkit-scrollbar{
+    width: 10px;
+    background-color: #2a2f33;
+
+}
+table::-webkit-scrollbar-thumb{
+    background-color:#3f444d;
+}
+
+#Tables{
+    text-align: center;
+}
+
+                  /*Формы с записями*/
+.badge{
+    background-color: #2a2f33;
+    border-radius: 5px;
+    margin-left: 20px;
+    text-align: center;
+    font-size: 30px;
+    padding: 5px;
+    margin-bottom: 20px;
+    text-align: left;
+    margin-top: 10px;
+    border: 2px double #1c1f21;
+}
+
+                    /*Кнопка назад*/
+#buttonBack{
+    background-color: #3f444d;
+    color: white;
+    text-decoration-line: none;
+    font-size: 20px;
+    padding: 17px;
+    border-radius: 50px;
+    font-weight: normal;
+    float: right;
+    margin-right: 20px;
+    border:2px double #2a2f33;
+}
+#buttonBack:hover{
+    background-color: #a11a1a;
+    font-weight: bold;
+}
+
