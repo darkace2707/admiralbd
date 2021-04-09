@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepartureWayAndConsignorPickHelper {
-
     private String departureWay;
     private String consignor;
 }
