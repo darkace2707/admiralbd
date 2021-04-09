@@ -8,14 +8,10 @@
     <link th:href="@{/css/app.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="badge" id="badge1">
-    <p th:text="${departureWay}">Дорога отправления</p>
-</div>
-<div class="badge" id="badge2">
-    <p th:text="${consignor}">Отправитель</p>
-</div>
+<div class="badge" id="badge1" th:text="${departureWay}">Дорога отправления</div>
+<div class="badge" id="badge2" th:text="${consignor}">Отправитель</div>
     <a th:href="@{/departures}"  class="badge" id="buttonBack">Назад</a>
-
+<br><br>
 <div id="Tables">
  <table id="table1" border="1">
      <tr class="line1">
@@ -24,7 +20,7 @@
      </tr>
      <tr th:each="monthCount : ${monthsCount}">
          <td  th:text="${monthCount.getKey()}">month</td>
-         <td  th:text="${monthCount.getValue()}">quantity</td>
+         <td th:text="${monthCount.getValue()}" class="cellQuantity" >quantity</td>
      </tr>
  </table>
 
@@ -50,7 +46,7 @@
     </tr>
     <tr th:each="CargoTypeCount : ${CargoTypesCount}">
         <td  th:text="${CargoTypeCount.getKey()}">month</td>
-        <td  th:text="${CargoTypeCount.getValue()}">quantity</td>
+        <td  th:text="${CargoTypeCount.getValue()}" class="cellQuantity">quantity</td>
     </tr>
 </table>
 
@@ -62,7 +58,7 @@
     </tr>
     <tr th:each="consigneeCount : ${consigneesCount}">
         <td  th:text="${consigneeCount.getKey()}">month</td>
-        <td  th:text="${consigneeCount.getValue()}">quantity</td>
+        <td  th:text="${consigneeCount.getValue()}" class="cellQuantity">quantity</td>
     </tr>
 </table>
 
@@ -87,7 +83,7 @@
     </tr>
     <tr th:each="CarriageKindCount : ${CarriageKindsCount}">
         <td  th:text="${CarriageKindCount.getKey()}">month</td>
-        <td  th:text="${CarriageKindCount.getValue()}">quantity</td>
+        <td  th:text="${CarriageKindCount.getValue()}" class="cellQuantity">quantity</td>
     </tr>
 </table>
 </div>

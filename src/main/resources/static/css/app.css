@@ -11,7 +11,7 @@ table{
     display: inline-block;
     color:white;
     background-color: #3f444d;
-    height: 350px;
+    height: 370px;
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 5px 0px 5px 5px;
@@ -25,12 +25,14 @@ th{
     border-radius: 5px 0px 0px 0px;
     border-right: 1px solid #4d5154;
 
+
 }
 td{
     padding: 5px;
    width:200px;
     height: 30px;
     border: 1px solid #4d5154;
+    text-align: left;
 }
 tr:hover{
     background-color: #525863
@@ -44,8 +46,9 @@ tr:hover{
 .line1{
     margin-top: -30px;
     position: absolute;
-
-
+}
+.cellQuantity{
+    font-size: 20px;
 }
 
 /*Прокрутка таблицы*/
@@ -65,15 +68,16 @@ table::-webkit-scrollbar-thumb{
                   /*Формы с записями*/
 .badge{
     background-color: #2a2f33;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-left: 20px;
     text-align: center;
     font-size: 30px;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 20px;
-    text-align: left;
+    text-align: center;
     margin-top: 10px;
     border: 2px double #1c1f21;
+
 }
 
                     /*Кнопка назад*/
@@ -83,14 +87,22 @@ table::-webkit-scrollbar-thumb{
     text-decoration-line: none;
     font-size: 20px;
     padding: 17px;
-    border-radius: 50px;
+    border-radius: 10px;
     font-weight: normal;
     float: right;
     margin-right: 20px;
     border:2px double #2a2f33;
+    width: 90px;
+   /* margin-bottom: 20px;
+    margin-top: 10px;*/
 }
 #buttonBack:hover{
-    background-color: #a11a1a;
+    background-color: #525863;
     font-weight: bold;
+    width: 90px;
+    padding-left: 14px;
+}
+#buttonBack:active{
+    background-color:#2a2f33 ;
 }
 
