@@ -48,4 +48,8 @@ public class Departure {
     private Integer volume;
     private Integer rate;
 
+    public void show(){
+        System.out.println(departureDate + " " +transportationType+ " "+departureWay+ " "+ payer+ " " + rate );
+    }
+
 }

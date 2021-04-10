@@ -14,7 +14,7 @@ public class AdmiralbdApplication {
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println(ExcelParser.readFromExcel("excel1.xlsx"));
+        ExcelParser.readFromExcel("excel1.xlsx");
         SpringApplication.run(AdmiralbdApplication.class, args);
     }
 
