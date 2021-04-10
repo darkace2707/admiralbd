@@ -32,6 +32,7 @@ public class DeparturesController {
     @GetMapping("/consignorView")
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
+
         model.addAttribute("departureWay", departureWay);
         model.addAttribute("consignor", consignor);
         model.addAttribute("monthsCount", departureService.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor));

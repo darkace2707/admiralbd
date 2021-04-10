@@ -8,6 +8,7 @@ import ru.admiralnsk.admiralbd.repository.DepartureRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -25,26 +26,17 @@ public class DepartureServiceImpl implements DepartureService {
     }
 
     @Override
-    public List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay,
-                                                                                String consignor) {
-        List<DeparturesCountProjection> departuresCountProjectionList =
-                departureRepository.findConsigneeCountByDepartureWayAndConsignor(departureWay, consignor);
-        List<DeparturesCount> departuresCountList = new ArrayList<>();
-        for (DeparturesCountProjection departuresCountProjection : departuresCountProjectionList) {
-            departuresCountList
-                    .add(new DeparturesCount(departuresCountProjection.getName(), departuresCountProjection.getValue()));
-        }
-        return departuresCountList;
-    }
-
-    @Override
     public List<String> findDistinctDepartureWays() {
         return departureRepository.findDistinctDepartureWays();
     }
 
     @Override
     public List<String> findDistinctConsignorsByDepartureWay(String departureWay) {
-        return departureRepository.findDistinctConsignorsByDepartureWay(departureWay);
+        List<String> consignorList = new ArrayList<>();
+        for (String consignor : departureRepository.findDistinctConsignorsByDepartureWay(departureWay)) {
+            consignorList.add(Objects.requireNonNullElse(consignor, "Не выбрано"));
+        }
+        return consignorList;
     }
 
     @Override
@@ -56,8 +48,13 @@ public class DepartureServiceImpl implements DepartureService {
     @Override
     public List<DeparturesCount> findDeparturesCountByDepartureWayAnAndConsignorAllMonth(String departureWay,
                                                                                          String consignor) {
-        List<DeparturesCountProjection> departuresCountList =
-                departureRepository.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor);
+
+        List<DeparturesCountProjection> departuresCountList;
+        if (consignor.equals("Не выбрано")) {
+            departuresCountList = departureRepository.findDeparturesCountByDepartureWayAnAndConsignorIsNullAllMonth(departureWay);
+        } else {
+            departuresCountList = departureRepository.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor);
+        }
 
         int counter = 0;
 
@@ -111,10 +108,38 @@ public class DepartureServiceImpl implements DepartureService {
     }
 
     @Override
+    public List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay,
+                                                                                String consignor) {
+        List<DeparturesCountProjection> departuresCountProjectionList;
+        if (consignor.equals("Не выбрано")) {
+            departuresCountProjectionList = departureRepository.findConsigneeCountByDepartureWayAndConsignorIsNull(departureWay);
+        } else {
+            departuresCountProjectionList = departureRepository.findConsigneeCountByDepartureWayAndConsignor(departureWay, consignor);
+        }
+
+        List<DeparturesCount> departuresCountList = new ArrayList<>();
+        for (DeparturesCountProjection departuresCountProjection : departuresCountProjectionList) {
+            if (departuresCountProjection.getName() == null) {
+                departuresCountList
+                        .add(new DeparturesCount("Не выбрано", departuresCountProjection.getValue()));
+            } else {
+                departuresCountList
+                        .add(new DeparturesCount(departuresCountProjection.getName(), departuresCountProjection.getValue()));
+            }
+        }
+        return departuresCountList;
+    }
+
+    @Override
     public List<DeparturesCount> findCargoTypeByDepartureWayAndConsignor(String departureWay,
-                                                                                   String consignor) {
-        List<DeparturesCountProjection> departuresCountProjectionList =
-                departureRepository.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor);
+                                                                         String consignor) {
+        List<DeparturesCountProjection> departuresCountProjectionList;
+        if (consignor.equals("Не выбрано")) {
+            departuresCountProjectionList = departureRepository.findCargoTypeByDepartureWayAndConsignorIsNull(departureWay);
+        } else {
+            departuresCountProjectionList = departureRepository.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor);
+        }
+
         List<DeparturesCount> departuresCountList = new ArrayList<>();
         for (DeparturesCountProjection departuresCountProjection : departuresCountProjectionList) {
             departuresCountList
@@ -125,8 +150,13 @@ public class DepartureServiceImpl implements DepartureService {
 
     @Override
     public List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor) {
-        List<DeparturesCountProjection> departuresCountProjectionList =
-                departureRepository.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor);
+        List<DeparturesCountProjection> departuresCountProjectionList;
+        if (consignor.equals("Не выбрано")) {
+            departuresCountProjectionList = departureRepository.findCarriageKindByDepartureWayAndConsignorIsNull(departureWay);
+        } else {
+            departuresCountProjectionList = departureRepository.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor);
+        }
+
         List<DeparturesCount> departuresCountList = new ArrayList<>();
         for (DeparturesCountProjection departuresCountProjection : departuresCountProjectionList) {
             departuresCountList
