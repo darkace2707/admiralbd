@@ -10,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeparturesCount {
-
-    private String key;
+    private String name;
     private Integer value;
 }

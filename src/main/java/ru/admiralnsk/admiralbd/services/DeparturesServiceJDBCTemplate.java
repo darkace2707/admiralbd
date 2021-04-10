@@ -1,45 +1,38 @@
 package ru.admiralnsk.admiralbd.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 
-import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class DeparturesServiceImpl implements DepartureService{
+@Deprecated
+public class DeparturesServiceJDBCTemplate {
 
     private final DepartureDAO departureDAO;
 
-    @Override
     public Integer getDeparturesCountWithDepartureWay(String departureWay) {
         return departureDAO.getDeparturesCountWithDepartureWay(departureWay);
     }
 
-    @Override
     public List<String> getDistinctDepartureWays() {
         return departureDAO.getDistinctDepartureWays();
     }
 
-    @Override
+
     public List<String> getDistinctConsignorsWithDepartureWay(String departureWay) {
         return departureDAO.getDistinctConsignorsWithDepartureWay(departureWay);
     }
 
-    @Override
     public Integer getDeparturesCountWithDepartureWayAndConsignorByMonth(String departureWay, String consignor,
                                                                          int month) {
         return departureDAO.getDeparturesCountWithDepartureWayAndConsignorByMonth(departureWay, consignor, month);
     }
 
-    @Override
     public List<DeparturesCount> getDeparturesCountWithDepartureWayAndConsignorByAllMonth(String departureWay,
                                                                                           String consignor) {
         List<DeparturesCount> departuresCountList =
@@ -54,7 +47,7 @@ public class DeparturesServiceImpl implements DepartureService{
 
         for (DeparturesCount departuresCount : departuresCountList) {
             counter += departuresCount.getValue();
-            formattedDeparturesCountList.get(Integer.parseInt(departuresCount.getKey()) - 1).setValue(departuresCount.getValue());
+            formattedDeparturesCountList.get(Integer.parseInt(departuresCount.getName()) - 1).setValue(departuresCount.getValue());
         }
 
         formattedDeparturesCountList.add(new DeparturesCount("Общий Итог", counter));
@@ -95,17 +88,14 @@ public class DeparturesServiceImpl implements DepartureService{
         }
     }
 
-    @Override
     public List<DeparturesCount> getConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor) {
         return departureDAO.getConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor);
     }
 
-    @Override
     public List<DeparturesCount> getCargoTypeWithDepartureWayAndConsignor(String departureWay, String consignor) {
         return departureDAO.getCargoTypeWithDepartureWayAndConsignor(departureWay, consignor);
     }
 
-    @Override
     public List<DeparturesCount> getCarriageKindWithDepartureWayAndConsignor(String departureWay, String consignor) {
         return departureDAO.getCarriageKindWithDepartureWayAndConsignor(departureWay, consignor);
     }
