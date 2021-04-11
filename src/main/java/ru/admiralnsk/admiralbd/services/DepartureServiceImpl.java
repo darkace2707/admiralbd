@@ -1,6 +1,8 @@
 package ru.admiralnsk.admiralbd.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.admiralnsk.admiralbd.constants.Constants;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
@@ -11,19 +13,11 @@ import java.util.List;
 import java.util.Objects;
 
 
+@RequiredArgsConstructor
 @Service
 public class DepartureServiceImpl implements DepartureService {
 
     private final DepartureRepository departureRepository;
-
-    public DepartureServiceImpl(DepartureRepository departureRepository) {
-        this.departureRepository = departureRepository;
-    }
-
-    @Override
-    public Departure findById(int id) {
-        return departureRepository.findById(id);
-    }
 
     @Override
     public List<String> findDistinctDepartureWays() {
@@ -34,7 +28,7 @@ public class DepartureServiceImpl implements DepartureService {
     public List<String> findDistinctConsignorsByDepartureWay(String departureWay) {
         List<String> consignorList = new ArrayList<>();
         for (String consignor : departureRepository.findDistinctConsignorsByDepartureWay(departureWay)) {
-            consignorList.add(Objects.requireNonNullElse(consignor, "Не выбрано"));
+            consignorList.add(Objects.requireNonNullElse(consignor, Constants.NOT_CHOSEN));
         }
         return consignorList;
     }
@@ -50,10 +44,12 @@ public class DepartureServiceImpl implements DepartureService {
                                                                                          String consignor) {
 
         List<DeparturesCountProjection> departuresCountList;
-        if (consignor.equals("Не выбрано")) {
-            departuresCountList = departureRepository.findDeparturesCountByDepartureWayAnAndConsignorIsNullAllMonth(departureWay);
+        if (consignor.equals(Constants.NOT_CHOSEN)) {
+            departuresCountList =
+                    departureRepository.findDeparturesCountByDepartureWayAnAndConsignorIsNullAllMonth(departureWay);
         } else {
-            departuresCountList = departureRepository.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor);
+            departuresCountList =
+                    departureRepository.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor);
         }
 
         int counter = 0;
@@ -76,8 +72,6 @@ public class DepartureServiceImpl implements DepartureService {
 
     private String getMonthName(int month) {
         switch (month) {
-            case -1:
-                return "Общий Итог";
             case 1:
                 return "Январь";
             case 2:
@@ -111,21 +105,19 @@ public class DepartureServiceImpl implements DepartureService {
     public List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay,
                                                                                 String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals("Не выбрано")) {
-            departuresCountProjectionList = departureRepository.findConsigneeCountByDepartureWayAndConsignorIsNull(departureWay);
+        if (consignor.equals(Constants.NOT_CHOSEN)) {
+            departuresCountProjectionList =
+                    departureRepository.findConsigneeCountByDepartureWayAndConsignorIsNull(departureWay);
         } else {
-            departuresCountProjectionList = departureRepository.findConsigneeCountByDepartureWayAndConsignor(departureWay, consignor);
+            departuresCountProjectionList =
+                    departureRepository.findConsigneeCountByDepartureWayAndConsignor(departureWay, consignor);
         }
 
         List<DeparturesCount> departuresCountList = new ArrayList<>();
         for (DeparturesCountProjection departuresCountProjection : departuresCountProjectionList) {
-            if (departuresCountProjection.getName() == null) {
-                departuresCountList
-                        .add(new DeparturesCount("Не выбрано", departuresCountProjection.getValue()));
-            } else {
-                departuresCountList
-                        .add(new DeparturesCount(departuresCountProjection.getName(), departuresCountProjection.getValue()));
-            }
+            departuresCountList.add(new DeparturesCount(
+                    Objects.requireNonNullElse(departuresCountProjection.getName(), Constants.NOT_CHOSEN),
+                    departuresCountProjection.getValue()));
         }
         return departuresCountList;
     }
@@ -134,10 +126,12 @@ public class DepartureServiceImpl implements DepartureService {
     public List<DeparturesCount> findCargoTypeByDepartureWayAndConsignor(String departureWay,
                                                                          String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals("Не выбрано")) {
-            departuresCountProjectionList = departureRepository.findCargoTypeByDepartureWayAndConsignorIsNull(departureWay);
+        if (consignor.equals(Constants.NOT_CHOSEN)) {
+            departuresCountProjectionList =
+                    departureRepository.findCargoTypeByDepartureWayAndConsignorIsNull(departureWay);
         } else {
-            departuresCountProjectionList = departureRepository.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor);
+            departuresCountProjectionList =
+                    departureRepository.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor);
         }
 
         List<DeparturesCount> departuresCountList = new ArrayList<>();
@@ -151,10 +145,12 @@ public class DepartureServiceImpl implements DepartureService {
     @Override
     public List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals("Не выбрано")) {
-            departuresCountProjectionList = departureRepository.findCarriageKindByDepartureWayAndConsignorIsNull(departureWay);
+        if (consignor.equals(Constants.NOT_CHOSEN)) {
+            departuresCountProjectionList =
+                    departureRepository.findCarriageKindByDepartureWayAndConsignorIsNull(departureWay);
         } else {
-            departuresCountProjectionList = departureRepository.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor);
+            departuresCountProjectionList =
+                    departureRepository.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor);
         }
 
         List<DeparturesCount> departuresCountList = new ArrayList<>();

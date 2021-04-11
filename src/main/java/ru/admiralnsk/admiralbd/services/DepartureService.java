@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface DepartureService {
 
-    Departure findById(int id);
-
     List<String> findDistinctDepartureWays();
 
     List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor);

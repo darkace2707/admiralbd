@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface DepartureRepository extends JpaRepository<Departure, Long> {
-    Departure findById(int id);
 
     @Query(nativeQuery = true, value = "SELECT DISTINCT d.DepartureWay FROM departures d ORDER BY 1")
     List<String> findDistinctDepartureWays();

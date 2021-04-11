@@ -1,5 +1,6 @@
 package ru.admiralnsk.admiralbd.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +12,12 @@ import ru.admiralnsk.admiralbd.services.DepartureServiceImpl;
 import ru.admiralnsk.admiralbd.services.DepartureService;
 
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/departures")
 public class DeparturesController {
 
     private final DepartureService departureService;
-
-    @Autowired
-    public DeparturesController(DepartureService departureService) {
-        this.departureService = departureService;
-    }
 
     @GetMapping("")
     public String main(Model model) {
