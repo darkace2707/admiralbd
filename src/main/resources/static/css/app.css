@@ -123,30 +123,52 @@ table::-webkit-scrollbar-thumb{
 
 
                 /* main.html*/
-#buttInf{
-    margin-top: 10px;
-    padding: 10px;
+.mainForm {
+    margin-top: 10%;
+    margin-left: 33%;
+    margin-right: 33%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.selector{
+.mainForm .label {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: #1c1f21;
+}
+
+.mainForm #buttInf{
+    margin: 15px auto auto;
+    padding: 10px;
+    width: 70%;
+}
+.mainForm .selector{
     background-color: #2a2f33;
     border-radius: 10px;
-    margin-left: 20px;
     text-align: center;
     font-size: 20px;
     padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    margin-top: 10px;
+    margin: 10px 0 20px;
     border: 2px double #1c1f21;
     color:white;
-    font-weight: bold;
 }
 
-.selector:hover{
+.mainForm .selector:disabled {
+    background-color: #474d52;
+    color: grey;
+}
+
+.mainForm .selector:disabled:hover{
+    cursor: default;
+}
+
+.mainForm .selector:hover{
     cursor: pointer;
 }
 
-.selector:checked{
-    border: 0px;
+.mainForm .selector:checked{
+    border: 0;
 }
