@@ -9,8 +9,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class Departure {
-
     private Integer id;
     private Date departureDate;
     private Integer carriageNumber;
@@ -47,46 +47,4 @@ public class Departure {
     private Integer carriageKm;
     private Integer volume;
     private Integer rate;
-
-    @Override
-    public String toString() {
-        return "Departure{" +
-                "id=" + id +
-                ", departureDate=" + departureDate +
-                ", carriageNumber=" + carriageNumber +
-                ", documentNumber='" + documentNumber + '\'' +
-                ", arrivalDate=" + arrivalDate +
-                ", lendingDate=" + lendingDate +
-                ", transportationType='" + transportationType + '\'' +
-                ", cargo=" + cargo +
-                ", cargoType='" + cargoType + '\'' +
-                ", departureCountry='" + departureCountry + '\'' +
-                ", departureStationCIS='" + departureStationCIS + '\'' +
-                ", departureStationCISCode=" + departureStationCISCode +
-                ", departureRegion='" + departureRegion + '\'' +
-                ", departureWay='" + departureWay + '\'' +
-                ", departureStationRF='" + departureStationRF + '\'' +
-                ", departureStationRFCode=" + departureStationRFCode +
-                ", consignor='" + consignor + '\'' +
-                ", consignorACEO=" + consignorACEO +
-                ", destinationCountry='" + destinationCountry + '\'' +
-                ", destinationRegion='" + destinationRegion + '\'' +
-                ", destinationWay='" + destinationWay + '\'' +
-                ", destinationStationRF='" + destinationStationRF + '\'' +
-                ", destinationStationRFCode=" + destinationStationRFCode +
-                ", destinationStationCIS='" + destinationStationCIS + '\'' +
-                ", destinationStationCISCode=" + destinationStationCISCode +
-                ", consignee='" + consignee + '\'' +
-                ", consigneeACEO=" + consigneeACEO +
-                ", carriageKind='" + carriageKind + '\'' +
-                ", carriageType='" + carriageType + '\'' +
-                ", payer='" + payer + '\'' +
-                ", owner='" + owner + '\'' +
-                ", renter='" + renter + '\'' +
-                ", operator='" + operator + '\'' +
-                ", carriageKm=" + carriageKm +
-                ", volume=" + volume +
-                ", rate=" + rate +
-                '}';
-    }
 }

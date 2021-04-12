@@ -16,9 +16,6 @@ import java.util.List;
 public class AdmiralbdApplication {
 
     public static void main(String[] args) throws IOException {
-
-//        File file = new File("excel1.xlsx");
-//        List<Departure> departureList = ExcelParser.readFromExcel(file);
         SpringApplication.run(AdmiralbdApplication.class, args);
     }
 
