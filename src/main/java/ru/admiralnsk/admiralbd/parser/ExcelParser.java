@@ -10,14 +10,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
 public class ExcelParser {
 
     private File excelFile;
+    static Map<Integer, BiConsumer<Cell, Departure>> MAPPERS = new HashMap<>();
 
     public ExcelParser(String excelFilePath) {
         this.excelFile = new File(excelFilePath);
@@ -38,9 +39,8 @@ public class ExcelParser {
                 if (departureEmpty) return;
 
                 Departure departure = new Departure();
-                for (Cell cell : row) {
-                    this.departureMapper(cell, departure);
-                }
+                Fields fields = new Fields();
+                fields.map(row, departure);
                 departureList.add(departure);
             });
 
@@ -48,253 +48,210 @@ public class ExcelParser {
         return departureList;
     }
 
-    private Departure departureMapper(Cell cell, Departure departure) {
-        //Дата отправления
-        if (cell.getColumnIndex() == 0) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setDepartureDate(null);
-            } else
-                departure.setDepartureDate(cell.getDateCellValue());
+    static class Fields {
+        public static final Integer DEPARTURE_DATE = 0;
+        public static final Integer CARRIAGE_NUMBER = 1;
+        public static final Integer DOCUMENT_NUMBER = 2;
+        public static final Integer ARRIVAL_DATE = 3;
+        public static final Integer LENDING_DATE = 4;
+        public static final Integer TRANSPORTATION_TYPE = 5;
+        public static final Integer CARGO = 6;
+        public static final Integer CARGO_TYPE = 7;
+        public static final Integer DEPARTURE_COUNTRY = 8;
+        public static final Integer DEPARTURE_STATION_CIS = 9;
+        public static final Integer DEPARTURE_STATION_CIS_CODE = 10;
+        public static final Integer DEPARTURE_REGION = 11;
+        public static final Integer DEPARTURE_WAY = 12;
+        public static final Integer DEPARTURE_STATION_RF = 13;
+        public static final Integer DEPARTURE_STATION_RF_CODE = 14;
+        public static final Integer CONSIGNOR = 15;
+        public static final Integer CONSIGNOR_ACEO = 16;
+        public static final Integer DESTINATION_COUNTRY = 17;
+        public static final Integer DESTINATION_REGION = 18;
+        public static final Integer DESTINATION_WAY = 19;
+        public static final Integer DESTINATION_STATION_RF = 20;
+        public static final Integer DESTINATION_STATION_RF_CODE = 21;
+        public static final Integer DESTINATION_STATION_CIS = 22;
+        public static final Integer DESTINATION_STATION_CIS_CODE = 23;
+        public static final Integer CONSIGNEE = 24;
+        public static final Integer CONSIGNEE_ACEO = 25;
+        public static final Integer CARRIAGE_KIND = 26;
+        public static final Integer CARRIAGE_TYPE = 27;
+        public static final Integer PAYER = 28;
+        public static final Integer OWNER = 29;
+        public static final Integer RENTER = 30;
+        public static final Integer OPERATOR = 31;
+        public static final Integer CARRIAGE_KM = 32;
+        public static final Integer VOLUME = 33;
+        public static final Integer RATE = 34;
+
+        private Fields() {}
+
+        {
+            MAPPERS.put(DEPARTURE_DATE, (cell, departure) -> departure.setDepartureDate(
+                    this.getDateCellValue(cell)
+            ));
+
+            MAPPERS.put(CARRIAGE_NUMBER, (cell, departure) -> departure.setCarriageNumber(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(DOCUMENT_NUMBER, (cell, departure) -> departure.setDocumentNumber(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(ARRIVAL_DATE, (cell, departure) -> departure.setArrivalDate(
+                    this.getDateCellValue(cell)
+            ));
+
+            MAPPERS.put(LENDING_DATE, (cell, departure) -> departure.setLendingDate(
+                    this.getDateCellValue(cell)
+            ));
+
+            MAPPERS.put(TRANSPORTATION_TYPE, (cell, departure) -> departure.setTransportationType(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(CARGO, (cell, departure) -> departure.setCargo(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(CARGO_TYPE, (cell, departure) -> departure.setCargoType(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_COUNTRY, (cell, departure) -> departure.setDepartureCountry(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_STATION_CIS, (cell, departure) -> departure.setDepartureStationCIS(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_STATION_CIS_CODE, (cell, departure) -> departure.setDepartureStationCISCode(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_REGION, (cell, departure) -> departure.setDepartureRegion(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_WAY, (cell, departure) -> departure.setDepartureWay(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_STATION_RF, (cell, departure) -> departure.setDepartureStationRF(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DEPARTURE_STATION_RF_CODE, (cell, departure) -> departure.setDepartureStationRFCode(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(CONSIGNOR, (cell, departure) -> departure.setConsignor(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(CONSIGNOR_ACEO, (cell, departure) -> departure.setConsignorACEO(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_COUNTRY, (cell, departure) -> departure.setDestinationCountry(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_REGION, (cell, departure) -> departure.setDestinationRegion(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_WAY, (cell, departure) -> departure.setDestinationWay(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_STATION_RF, (cell, departure) -> departure.setDestinationStationRF(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_STATION_RF_CODE, (cell, departure) -> departure.setDestinationStationRFCode(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_STATION_CIS, (cell, departure) -> departure.setDestinationStationCIS(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(DESTINATION_STATION_CIS_CODE, (cell, departure) -> departure.setDestinationStationCISCode(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(CONSIGNEE, (cell, departure) -> departure.setConsignee(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(CONSIGNEE_ACEO, (cell, departure) -> departure.setConsigneeACEO(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(CARRIAGE_KIND, (cell, departure) -> departure.setCarriageKind(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(CARRIAGE_TYPE, (cell, departure) -> departure.setCarriageType(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(PAYER, (cell, departure) -> departure.setPayer(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(OWNER, (cell, departure) -> departure.setOwner(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(RENTER, (cell, departure) -> departure.setRenter(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(OPERATOR, (cell, departure) -> departure.setOperator(
+                    this.getStringCellValue(cell)
+            ));
+
+            MAPPERS.put(CARRIAGE_KM, (cell, departure) -> departure.setCarriageKm(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(VOLUME, (cell, departure) -> departure.setVolume(
+                    this.getNumericCellValue(cell)
+            ));
+
+            MAPPERS.put(RATE, (cell, departure) -> departure.setRate(
+                    this.getNumericCellValue(cell)
+            ));
         }
-        //Номер вагона
-        if (cell.getColumnIndex() == 1) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setCarriageNumber(null);
-            } else
-                departure.setCarriageNumber((int) cell.getNumericCellValue());
+
+        private Integer getNumericCellValue(Cell cell) {
+            return cell.getCellType() == CellType.BLANK ? null : (int) cell.getNumericCellValue();
         }
-        //Номер документа
-        if (cell.getColumnIndex() == 2) {
+
+        private String getStringCellValue(Cell cell) {
             if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDocumentNumber(null);
+                return null;
             } else
-                departure.setDocumentNumber(cell.getStringCellValue());
+                return cell.getStringCellValue();
         }
-        //Дата прибытия
-        if (cell.getColumnIndex() == 3) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setArrivalDate(null);
-            } else
-                departure.setArrivalDate(cell.getDateCellValue());
-        }
-        //Дата раскредитования
-        if (cell.getColumnIndex() == 4) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setLendingDate(null);
-            } else
-                departure.setLendingDate(cell.getDateCellValue());
-        }
-        //Вид перевозки
-        if (cell.getColumnIndex() == 5) {
+
+        private Date getDateCellValue(Cell cell) {
             if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setTransportationType(null);
+                return null;
             } else
-                departure.setTransportationType(cell.getStringCellValue());
+                return cell.getDateCellValue();
         }
-        //Код груза
-        if (cell.getColumnIndex() == 6) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setCargo(null);
-            } else
-                departure.setCargo((int) cell.getNumericCellValue());
+
+        private void map(Row row, Departure departure) {
+            StreamSupport.stream(row.spliterator(), false).forEach(
+                    cell -> MAPPERS.get(cell.getColumnIndex()).accept(cell, departure)
+            );
         }
-        //Груз
-        if (cell.getColumnIndex() == 7) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setCargoType(null);
-            } else
-                departure.setCargoType(cell.getStringCellValue());
-        }
-        //Государство отправления
-        if (cell.getColumnIndex() == 8) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDepartureCountry(null);
-            } else
-                departure.setDepartureCountry(cell.getStringCellValue());
-        }
-        //Станция отправления СНГ
-        if (cell.getColumnIndex() == 9) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDepartureStationCIS(null);
-            } else
-                departure.setDepartureStationCIS(cell.getStringCellValue());
-        }
-        //Код Станции отправления СНГ
-        if (cell.getColumnIndex() == 10) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setDepartureStationCISCode(null);
-            } else
-                departure.setDepartureStationCISCode((int) cell.getNumericCellValue());
-        }
-        //Область отправления
-        if (cell.getColumnIndex() == 11) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDepartureRegion(null);
-            } else
-                departure.setDepartureRegion(cell.getStringCellValue());
-        }
-        //Дорога отправления
-        if (cell.getColumnIndex() == 12) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDepartureWay(null);
-            } else
-                departure.setDepartureWay(cell.getStringCellValue());
-        }
-        //Станция отправления РФ
-        if (cell.getColumnIndex() == 13) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDepartureStationRF(null);
-            } else
-                departure.setDepartureStationRF(cell.getStringCellValue());
-        }
-        //Код Станции отправления РФ
-        if (cell.getColumnIndex() == 14) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setDepartureStationRFCode(null);
-            } else
-                departure.setDepartureStationRFCode((int) cell.getNumericCellValue());
-        }
-        //Грузоотправтитель
-        if (cell.getColumnIndex() == 15) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setConsignor(null);
-            } else
-                departure.setConsignor(cell.getStringCellValue());
-        }
-        //Грузоотправитель (ОКПО)
-        if (cell.getColumnIndex() == 16) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setConsignorACEO(null);
-            } else
-                departure.setConsignorACEO((int) cell.getNumericCellValue());
-        }
-        //Государство назначения
-        if (cell.getColumnIndex() == 17) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDestinationCountry(null);
-            } else
-                departure.setDestinationCountry(cell.getStringCellValue());
-        }
-        //Регион назначения
-        if (cell.getColumnIndex() == 18) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDestinationRegion(null);
-            } else
-                departure.setDestinationRegion(cell.getStringCellValue());
-        }
-        //Дорога назначения
-        if (cell.getColumnIndex() == 19) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDestinationWay(null);
-            } else
-                departure.setDestinationWay(cell.getStringCellValue());
-        }
-        //Станция назначения РФ
-        if (cell.getColumnIndex() == 20) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDestinationStationRF(null);
-            } else
-                departure.setDestinationStationRF(cell.getStringCellValue());
-        }
-        //Код станции назначения РФ
-        if (cell.getColumnIndex() == 21) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setDestinationStationRFCode(null);
-            } else
-                departure.setDestinationStationRFCode((int) cell.getNumericCellValue());
-        }
-        //Станция назначения СНГ
-        if (cell.getColumnIndex() == 22) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setDestinationStationCIS(null);
-            } else
-                departure.setDestinationStationCIS(cell.getStringCellValue());
-        }
-        //Код станции назначения СНГ
-        if (cell.getColumnIndex() == 23) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setDestinationStationCISCode(null);
-            } else
-                departure.setDestinationStationCISCode((int) cell.getNumericCellValue());
-        }
-        //Грузополучатель
-        if (cell.getColumnIndex() == 24) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setConsignee(null);
-            } else
-                departure.setConsignee(cell.getStringCellValue());
-        }
-        //Грузополучатель (ОКПО)
-        if (cell.getColumnIndex() == 25) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setConsigneeACEO(null);
-            } else
-                departure.setConsigneeACEO((int) cell.getNumericCellValue());
-        }
-        //Род вагона
-        if (cell.getColumnIndex() == 26) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setCarriageKind(null);
-            } else
-                departure.setCarriageKind(cell.getStringCellValue());
-        }
-        //Тип вагона
-        if (cell.getColumnIndex() == 27) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setCarriageType(null);
-            } else
-                departure.setCarriageType(cell.getStringCellValue());
-        }
-        //Плательщик
-        if (cell.getColumnIndex() == 28) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setPayer(null);
-            } else
-                departure.setPayer(cell.getStringCellValue());
-        }
-        //Собственник
-        if (cell.getColumnIndex() == 29) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setOwner(null);
-            } else
-                departure.setOwner(cell.getStringCellValue());
-        }
-        //Арендатор
-        if (cell.getColumnIndex() == 30) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setRenter(null);
-            } else
-                departure.setRenter(cell.getStringCellValue());
-        }
-        //Оператор
-        if (cell.getColumnIndex() == 31) {
-            if (cell.getCellType() == CellType.BLANK || cell.getStringCellValue().equals("0")) {
-                departure.setOperator(null);
-            } else
-                departure.setOperator(cell.getStringCellValue());
-        }
-        //ВАГОН-КМ
-        if (cell.getColumnIndex() == 32) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setCarriageKm(null);
-            } else
-                departure.setCarriageKm((int) cell.getNumericCellValue());
-        }
-        //Объем
-        if (cell.getColumnIndex() == 33) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setVolume(null);
-            } else
-                departure.setVolume((int) cell.getNumericCellValue());
-        }
-        //Тариф
-        if (cell.getColumnIndex() == 34) {
-            if (cell.getCellType() == CellType.BLANK) {
-                departure.setRate(null);
-            } else
-                departure.setRate((int) cell.getNumericCellValue());
-        }
-        return departure;
     }
 
 }
