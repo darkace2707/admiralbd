@@ -3,6 +3,7 @@ package ru.admiralnsk.admiralbd;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import ru.admiralnsk.admiralbd.mappers.DepartureFieldsMapper;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
 
@@ -16,11 +17,7 @@ import java.util.List;
 @EnableWebMvc
 public class AdmiralbdApplication {
 
-    public static void main(String[] args) throws IOException {
-        ExcelParser excelParser = new ExcelParser("excel1.xlsx");
-        List<Departure> l = new ArrayList<>(excelParser.readFromExcel());
-        System.out.println(l.get(0));
-
+    public static void main(String[] args) {
         SpringApplication.run(AdmiralbdApplication.class, args);
     }
 
