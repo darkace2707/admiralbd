@@ -3,6 +3,7 @@ package ru.admiralnsk.admiralbd.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.admiralnsk.admiralbd.constants.Constants;
+import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
@@ -44,7 +45,7 @@ public class DepartureServiceImpl implements DepartureService {
                                                                                          String consignor) {
 
         List<DeparturesCountProjection> departuresCountList;
-        if (consignor.equals(Constants.NOT_CHOSEN)) {
+        if (Constants.NOT_CHOSEN.equals(consignor)) {
             departuresCountList =
                     departureRepository.findDeparturesCountByDepartureWayAnAndConsignorIsNullAllMonth(departureWay);
         } else {
@@ -56,7 +57,7 @@ public class DepartureServiceImpl implements DepartureService {
 
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            formattedDeparturesCountList.add(new DeparturesCount(this.getMonthName(i+1), 0));
+            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i+1), 0));
         }
 
         for (DeparturesCountProjection departuresCount : departuresCountList) {
@@ -70,42 +71,11 @@ public class DepartureServiceImpl implements DepartureService {
         return formattedDeparturesCountList;
     }
 
-    private String getMonthName(int month) {
-        switch (month) {
-            case 1:
-                return "Январь";
-            case 2:
-                return "Февраль";
-            case 3:
-                return "Март";
-            case 4:
-                return "Апрель";
-            case 5:
-                return "Май";
-            case 6:
-                return "Июнь";
-            case 7:
-                return "Июль";
-            case 8:
-                return "Август";
-            case 9:
-                return "Сентябрь";
-            case 10:
-                return "Октябрь";
-            case 11:
-                return "Ноябрь";
-            case 12:
-                return "Декабрь";
-            default:
-                return "Не задано";
-        }
-    }
-
     @Override
     public List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay,
                                                                                 String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals(Constants.NOT_CHOSEN)) {
+        if (Constants.NOT_CHOSEN.equals(consignor)) {
             departuresCountProjectionList =
                     departureRepository.findConsigneeCountByDepartureWayAndConsignorIsNull(departureWay);
         } else {
@@ -126,7 +96,7 @@ public class DepartureServiceImpl implements DepartureService {
     public List<DeparturesCount> findCargoTypeByDepartureWayAndConsignor(String departureWay,
                                                                          String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals(Constants.NOT_CHOSEN)) {
+        if (Constants.NOT_CHOSEN.equals(consignor)) {
             departuresCountProjectionList =
                     departureRepository.findCargoTypeByDepartureWayAndConsignorIsNull(departureWay);
         } else {
@@ -145,7 +115,7 @@ public class DepartureServiceImpl implements DepartureService {
     @Override
     public List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor) {
         List<DeparturesCountProjection> departuresCountProjectionList;
-        if (consignor.equals(Constants.NOT_CHOSEN)) {
+        if (Constants.NOT_CHOSEN.equals(consignor)) {
             departuresCountProjectionList =
                     departureRepository.findCarriageKindByDepartureWayAndConsignorIsNull(departureWay);
         } else {

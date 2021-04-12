@@ -3,6 +3,7 @@ package ru.admiralnsk.admiralbd.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
+import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class DeparturesServiceJDBCTemplate {
 
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            formattedDeparturesCountList.add(new DeparturesCount(this.getMonthName(i+1), 0));
+            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i+1), 0));
         }
 
         for (DeparturesCount departuresCount : departuresCountList) {
@@ -53,39 +54,6 @@ public class DeparturesServiceJDBCTemplate {
         formattedDeparturesCountList.add(new DeparturesCount("Общий Итог", counter));
 
         return formattedDeparturesCountList;
-    }
-
-    private String getMonthName(int month) {
-        switch (month) {
-            case -1:
-                return "Общий Итог";
-            case 1:
-                return "Январь";
-            case 2:
-                return "Февраль";
-            case 3:
-                return "Март";
-            case 4:
-                return "Апрель";
-            case 5:
-                return "Май";
-            case 6:
-                return "Июнь";
-            case 7:
-                return "Июль";
-            case 8:
-                return "Август";
-            case 9:
-                return "Сентябрь";
-            case 10:
-                return "Октябрь";
-            case 11:
-                return "Ноябрь";
-            case 12:
-                return "Декабрь";
-            default:
-                return "Не задано";
-        }
     }
 
     public List<DeparturesCount> getConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor) {

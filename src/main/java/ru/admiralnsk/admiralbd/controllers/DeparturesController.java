@@ -1,14 +1,12 @@
 package ru.admiralnsk.admiralbd.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorPickHelper;
-import ru.admiralnsk.admiralbd.services.DepartureServiceImpl;
+import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorFormRequest;
 import ru.admiralnsk.admiralbd.services.DepartureService;
 
 
@@ -21,7 +19,7 @@ public class DeparturesController {
 
     @GetMapping("")
     public String main(Model model) {
-        model.addAttribute("formData", new DepartureWayAndConsignorPickHelper());
+        model.addAttribute("formData", new DepartureWayAndConsignorFormRequest());
         model.addAttribute("departureWays", departureService.findDistinctDepartureWays());
         return "main";
     }
