@@ -1,6 +1,7 @@
 package ru.admiralnsk.admiralbd.models;
 
 import lombok.*;
+import javax.persistence.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Entity
 @Table(name="departures")
 public class Departure {
@@ -53,5 +55,4 @@ public class Departure {
     private Integer carriageKm;
     private Integer volume;
     private Integer rate;
-
 }
