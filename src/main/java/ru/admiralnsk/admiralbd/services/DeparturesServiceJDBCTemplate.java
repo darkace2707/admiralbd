@@ -2,6 +2,7 @@ package ru.admiralnsk.admiralbd.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.admiralnsk.admiralbd.constants.Constants;
 import ru.admiralnsk.admiralbd.dao.DepartureDAO;
 import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
@@ -51,7 +52,7 @@ public class DeparturesServiceJDBCTemplate {
             formattedDeparturesCountList.get(Integer.parseInt(departuresCount.getName()) - 1).setValue(departuresCount.getValue());
         }
 
-        formattedDeparturesCountList.add(new DeparturesCount("Общий Итог", counter));
+        formattedDeparturesCountList.add(new DeparturesCount(Constants.OVERALL, counter));
 
         return formattedDeparturesCountList;
     }

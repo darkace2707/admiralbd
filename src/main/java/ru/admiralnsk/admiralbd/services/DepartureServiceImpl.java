@@ -66,7 +66,7 @@ public class DepartureServiceImpl implements DepartureService {
                     .get(Integer.parseInt(departuresCount.getName()) - 1).setValue(departuresCount.getValue());
         }
 
-        formattedDeparturesCountList.add(new DeparturesCount("Общий Итог", counter));
+        formattedDeparturesCountList.add(new DeparturesCount(Constants.OVERALL, counter));
 
         return formattedDeparturesCountList;
     }
