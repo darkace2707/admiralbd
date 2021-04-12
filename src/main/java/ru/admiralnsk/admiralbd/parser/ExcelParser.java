@@ -29,23 +29,24 @@ public class ExcelParser {
         InputStream is = new FileInputStream(excelFile);
         List<Departure> departureList = new ArrayList<>();
 
-        Workbook workbook = StreamingReader.builder()
-                .rowCacheSize(30)
-                .open(is);
+        try (Workbook workbook = StreamingReader.builder().rowCacheSize(30).open(is)) {
+            for (Sheet sheet : workbook) {
+                StreamSupport.stream(sheet.spliterator(), false).skip(1).forEach(row -> {
+                    if (this.isDepartureEmpty(row)) return;
 
-        for (Sheet sheet : workbook) {
-            StreamSupport.stream(sheet.spliterator(), false).skip(1).forEach(row -> {
-                boolean departureEmpty = row.getCell(7).getStringCellValue().startsWith("ВАГ");
-                if (departureEmpty) return;
-
-                Departure departure = new Departure();
-                Fields fields = new Fields();
-                fields.map(row, departure);
-                departureList.add(departure);
-            });
-
+                    Departure departure = new Departure();
+                    Fields fields = new Fields();
+                    fields.map(row, departure);
+                    departureList.add(departure);
+                });
             }
+        }
+
         return departureList;
+    }
+
+    private boolean isDepartureEmpty(Row row) {
+        return row.getCell(7).getStringCellValue().startsWith("ВАГ");
     }
 
     static class Fields {
