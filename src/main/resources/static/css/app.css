@@ -11,10 +11,12 @@ table{
     display: inline-block;
     color:white;
     background-color: #3f444d;
-    height: 350px;
+    height: 370px;
     overflow-y: scroll;
     overflow-x: hidden;
     border-radius: 5px 0px 5px 5px;
+    table-layout:fixed;
+    width: 412px;
 }
 /*Ячейки*/
 th{
@@ -25,12 +27,19 @@ th{
     border-radius: 5px 0px 0px 0px;
     border-right: 1px solid #4d5154;
 
+
 }
 td{
     padding: 5px;
-   width:200px;
+    width:200px;
     height: 30px;
     border: 1px solid #4d5154;
+    text-align: left;
+    overflow: hidden;
+}
+td div{
+    width: 200px;
+    overflow: hidden;
 }
 tr:hover{
     background-color: #525863
@@ -44,8 +53,17 @@ tr:hover{
 .line1{
     margin-top: -30px;
     position: absolute;
-
-
+}
+.cellsQuantity{
+    font-size: 20px;
+    width: 200px;
+    text-align: center;
+}
+.cellsName{
+    padding-left: 10px;
+}
+#table1 td.cellsName, #table6 td.cellsName{
+    font-size: 17px;
 }
 
 /*Прокрутка таблицы*/
@@ -65,32 +83,92 @@ table::-webkit-scrollbar-thumb{
                   /*Формы с записями*/
 .badge{
     background-color: #2a2f33;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-left: 20px;
     text-align: center;
     font-size: 30px;
-    padding: 5px;
+    padding: 10px;
     margin-bottom: 20px;
-    text-align: left;
+    text-align: center;
     margin-top: 10px;
     border: 2px double #1c1f21;
+
 }
 
                     /*Кнопка назад*/
-#buttonBack{
+.buttonBack{
     background-color: #3f444d;
     color: white;
     text-decoration-line: none;
     font-size: 20px;
     padding: 17px;
-    border-radius: 50px;
-    font-weight: normal;
+    padding-left: 14px;
+    border-radius: 10px;
+    font-weight: bold;
     float: right;
     margin-right: 20px;
     border:2px double #2a2f33;
+
 }
-#buttonBack:hover{
-    background-color: #a11a1a;
-    font-weight: bold;
+.buttonBack:hover{
+    background-color: #525863;
+
+    color: white;
+
+}
+.buttonBack:active{
+    background-color:#2a2f33 ;
 }
 
+
+
+                /* main.html*/
+.mainForm {
+    margin-top: 10%;
+    margin-left: 33%;
+    margin-right: 33%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mainForm .label {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: #1c1f21;
+}
+
+.mainForm #buttInf{
+    margin: 15px auto auto;
+    padding: 10px;
+    width: 70%;
+}
+.mainForm .selector{
+    background-color: #2a2f33;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 2px double #1c1f21;
+    color:white;
+}
+
+.mainForm .selector:disabled {
+    background-color: #474d52;
+    color: grey;
+}
+
+.mainForm .selector:disabled:hover{
+    cursor: default;
+}
+
+.mainForm .selector:hover{
+    cursor: pointer;
+}
+
+.mainForm .selector:checked{
+    border: 0;
+}

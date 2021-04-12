@@ -34,8 +34,22 @@ async function addConsignorsToSelect() {
         alert("Ошибка HTTP: " + response.status);
     }
 
+    let n = consignorsSelect.childElementCount
+    for (let i = 1; i < n; i++) {
+        let hr = document.createElement('hr');
+        consignorsSelect.insertBefore(hr, consignorsSelect[consignorsSelect.length - i]);
+    }
+
     setDisableSelects(false);
 }
 
 departureWaySelect.onchange = addConsignorsToSelect;
+
+let n = departureWaySelect.childElementCount
+for (let i = 1; i < n; i++) {
+    let hr = document.createElement('hr');
+    departureWaySelect.insertBefore(hr, departureWaySelect[departureWaySelect.length - i]);
+}
+
+
 addConsignorsToSelect();

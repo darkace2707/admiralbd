@@ -1,6 +1,8 @@
 package ru.admiralnsk.admiralbd.models;
 
 import lombok.*;
+
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -9,8 +11,12 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Entity
+@Table(name="departures")
 public class Departure {
 
+    @Id
+    @GeneratedValue
     private Integer id;
     private Date departureDate;
     private Integer carriageNumber;

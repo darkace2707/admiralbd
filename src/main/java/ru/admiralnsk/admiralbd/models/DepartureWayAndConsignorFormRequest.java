@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepartureWayAndConsignorPickHelper {
-
+public class DepartureWayAndConsignorFormRequest {
     private String departureWay;
     private String consignor;
 }

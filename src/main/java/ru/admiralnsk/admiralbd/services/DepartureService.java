@@ -1,25 +1,24 @@
 package ru.admiralnsk.admiralbd.services;
 
+import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
+import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
+
 import java.util.List;
 
 public interface DepartureService {
 
-    Integer getDeparturesCountWithDepartureWay(String departureWay);
+    List<String> findDistinctDepartureWays();
 
-    List<String> getDistinctDepartureWays();
+    List<DeparturesCount> findConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor);
 
-    List<String> getDistinctConsignorsWithDepartureWay(String departureWay);
+    List<String> findDistinctConsignorsByDepartureWay(String departureWay);
 
-    Integer getDeparturesCountWithDepartureWayAndConsignorByMonth(String departureWay,
-                                                                  String consignor, int month);
+    Integer findDeparturesCountByDepartureWayAnAndConsignorAndMonth(String departureWay, String consignor, int month);
 
-    List<DeparturesCount> getDeparturesCountWithDepartureWayAndConsignorByAllMonth(String departureWay,
-                                                                                   String consignor);
+    List<DeparturesCount> findDeparturesCountByDepartureWayAnAndConsignorAllMonth(String departureWay, String consignor);
 
-    List<DeparturesCount> getConsigneeCountWithDepartureWayAndConsignor(String departureWay, String consignor);
+    List<DeparturesCount> findCargoTypeByDepartureWayAndConsignor(String departureWay, String consignor);
 
-    List<DeparturesCount> getCargoTypeWithDepartureWayAndConsignor(String departureWay, String consignor);
-
-    List<DeparturesCount> getCarriageKindWithDepartureWayAndConsignor(String departureWay, String consignor);
+    List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor);
 }
