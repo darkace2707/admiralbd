@@ -92,13 +92,34 @@
     $(document).ready(function () {
         $.ajax({
             "type": 'get',
-            "url": '/api/departures/nodes',
+            "url": '/api/departures/departureStationRfTreeTable',
             "dataType": "json",
             "success": function (data) {
                 $.each(data, function (idx, obj) {
                     $("#table2").append("<tr data-tt-id=\"" + obj.nodeId + "\" data-tt-parent-id=\"" + obj.pid + "\"><td>" + obj.text + "</td><td>" + obj.href + "</td></tr>");
                 });
                 $("#table2").treetable({
+                    expandable: true,
+                    initialState: "expanded",
+                    clickableNodeNames: true,
+                    indent: 30
+                });
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajax({
+            "type": 'get',
+            "url": '/api/departures/ownersTreeTable',
+            "dataType": "json",
+            "success": function (data) {
+                $.each(data, function (idx, obj) {
+                    $("#table5").append("<tr data-tt-id=\"" + obj.nodeId + "\" data-tt-parent-id=\"" + obj.pid + "\"><td>" + obj.text + "</td><td>" + obj.href + "</td></tr>");
+                });
+                $("#table5").treetable({
                     expandable: true,
                     initialState: "expanded",
                     clickableNodeNames: true,
