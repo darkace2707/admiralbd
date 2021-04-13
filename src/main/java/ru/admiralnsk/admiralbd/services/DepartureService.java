@@ -1,9 +1,9 @@
 package ru.admiralnsk.admiralbd.services;
 
-import ru.admiralnsk.admiralbd.models.Departure;
+import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
-import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface DepartureService {
@@ -21,4 +21,6 @@ public interface DepartureService {
     List<DeparturesCount> findCargoTypeByDepartureWayAndConsignor(String departureWay, String consignor);
 
     List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor);
+
+    void putDepartures(MultipartFile file) throws IOException;
 }

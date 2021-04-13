@@ -2,13 +2,16 @@ package ru.admiralnsk.admiralbd.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.constants.Constants;
 import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
+import ru.admiralnsk.admiralbd.parser.ExcelParser;
 import ru.admiralnsk.admiralbd.repository.DepartureRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +22,7 @@ import java.util.Objects;
 public class DepartureServiceImpl implements DepartureService {
 
     private final DepartureRepository departureRepository;
+    private final ExcelParser excelParser;
 
     @Override
     public List<String> findDistinctDepartureWays() {
@@ -129,5 +133,22 @@ public class DepartureServiceImpl implements DepartureService {
                     .add(new DeparturesCount(departuresCountProjection.getName(), departuresCountProjection.getValue()));
         }
         return departuresCountList;
+    }
+
+    @Override
+    public void putDepartures(MultipartFile file) throws IOException {
+        List<Departure> departures = excelParser.readFromExcel(file);
+        System.out.println(departures.size());
+        long start = System.nanoTime();
+        for (Departure departure : departures) {
+            if (!departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
+                    departure.getDepartureDate(),
+                    departure.getCarriageNumber(),
+                    departure.getDocumentNumber(),
+                    departure.getCargo())) {
+                departureRepository.save(departure);
+            }
+        }
+        System.out.println(System.nanoTime() - start);
     }
 }
