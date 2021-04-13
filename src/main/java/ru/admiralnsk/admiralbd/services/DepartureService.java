@@ -5,6 +5,7 @@ import ru.admiralnsk.admiralbd.models.DeparturesCount;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public interface DepartureService {
 
@@ -22,5 +23,5 @@ public interface DepartureService {
 
     List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor);
 
-    void putDepartures(MultipartFile file) throws IOException;
+    void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException;
 }

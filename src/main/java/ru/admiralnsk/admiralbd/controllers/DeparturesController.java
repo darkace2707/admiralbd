@@ -12,6 +12,7 @@ import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorFormRequest;
 import ru.admiralnsk.admiralbd.services.DepartureService;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 @RequiredArgsConstructor
@@ -47,7 +48,7 @@ public class DeparturesController {
     }
 
     @PostMapping("/uploadExcel")
-    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException {
+    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException, ExecutionException, InterruptedException {
         departureService.putDepartures(file);
         return "redirect:/departures";
     }

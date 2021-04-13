@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -136,19 +139,18 @@ public class DepartureServiceImpl implements DepartureService {
     }
 
     @Override
-    public void putDepartures(MultipartFile file) throws IOException {
+    public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         List<Departure> departures = excelParser.readFromExcel(file);
-        System.out.println(departures.size());
-        long start = System.nanoTime();
-        for (Departure departure : departures) {
-            if (!departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
-                    departure.getDepartureDate(),
-                    departure.getCarriageNumber(),
-                    departure.getDocumentNumber(),
-                    departure.getCargo())) {
-                departureRepository.save(departure);
-            }
-        }
-        System.out.println(System.nanoTime() - start);
+
+        ForkJoinPool myPool = new ForkJoinPool(32);
+        List<Departure> filteredDepartures =  myPool.submit( () -> departures.parallelStream()
+                .filter(departure -> !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
+                        departure.getDepartureDate(),
+                        departure.getCarriageNumber(),
+                        departure.getDocumentNumber(),
+                        departure.getCargo()))
+                .collect(Collectors.toList())).get();
+
+        departureRepository.saveAll(filteredDepartures);
     }
 }
