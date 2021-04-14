@@ -3,13 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/css/app.css}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/departures/uploadExcel}" enctype="multipart/form-data">
-    <div>Загрузите Excel файл с отправлениями</div>
-    <input name="excelFile" type="file">
-    <input type="submit" value="Отправить">
+
+
+<form  class="mainForm" th:method="POST" th:action="@{/departures/uploadExcel}" enctype="multipart/form-data">
+    <div id="labelUploadExcel" class="label">Загрузите Excel файл с отправлениями
+    <br>
+    <em>Загрузка может занять до 10 минут!</em>
+    </div>
+    <br>
+
+    <label class="labelUp label">
+        <i class="material-icons">attach_file</i>
+        <span class="title">Добавить файл</span>
+        <input id="excelFile" name="excelFile" type="file">
+    </label>
+
+<br>
+    <input class ="buttonBack buttInf" type="submit" value="Отправить">
 </form>
 
 </body>
