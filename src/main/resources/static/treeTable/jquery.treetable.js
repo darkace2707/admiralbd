@@ -432,7 +432,7 @@
                 expanderTemplate: "<a href='#'>&nbsp;</a>",
                 indent: 19,
                 indenterTemplate: "<span class='indenter'></span>",
-                initialState: "collapsed",
+                initialState: "collpased",
                 nodeIdAttr: "ttId", // maps to data-tt-id
                 parentIdAttr: "ttParentId", // maps to data-tt-parent-id
                 stringExpand: "Expand",

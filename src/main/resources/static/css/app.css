@@ -18,6 +18,8 @@ table{
     table-layout:fixed;
     width: 412px;
 }
+
+
 /*Ячейки*/
 th{
     width:200px;
@@ -49,6 +51,9 @@ tr:hover{
     border-radius: 0px 5px 0px 0px;
     border-right: 0px;
 }
+#table2 .CellCount, #table5 .CellCount{
+    width: 212px;
+}
 
 .line1{
     margin-top: -30px;
@@ -58,6 +63,7 @@ tr:hover{
     font-size: 20px;
     width: 200px;
     text-align: center;
+    border-right: 0px ;
 }
 .cellsName{
     padding-left: 10px;
