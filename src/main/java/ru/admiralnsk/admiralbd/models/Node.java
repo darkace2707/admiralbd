@@ -18,4 +18,14 @@ public class Node {
         this.text = text;
         this.href = href;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "nodeId='" + nodeId + '\'' +
+                ", pid='" + pid + '\'' +
+                ", text='" + text + '\'' +
+                ", href='" + href + '\'' +
+                '}';
+    }
 }

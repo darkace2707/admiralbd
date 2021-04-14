@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
+import ru.admiralnsk.admiralbd.models.DestinationStationRFCountProjection;
+import ru.admiralnsk.admiralbd.models.OwnersCountProjection;
 
 import java.util.List;
 
@@ -56,4 +58,19 @@ public interface DepartureRepository extends JpaRepository<Departure, Long> {
     @Query(nativeQuery = true, value = "SELECT d.CarriageKind AS name, count(d.id) AS value FROM departures d " +
             "WHERE d.DepartureWay = ? AND d.Consignor IS NULL GROUP BY d.CarriageKind ORDER BY count(d.id) DESC")
     List<DeparturesCountProjection> findCarriageKindByDepartureWayAndConsignorIsNull(String departureWay);
+
+    @Query(nativeQuery = true, value = "SELECT d.DepartureStationRF AS departureStationRF, " +
+            "d.DestinationWay AS destinationWay, d.DestinationStationRF AS destinationStationRF, count(d.id) AS count " +
+            "FROM departures AS d " +
+            "WHERE d.DepartureWay = ? AND d.Consignor = ? " +
+            "GROUP BY d.DepartureStationRF, d.DestinationWay, d.DestinationStationRF " +
+            "ORDER BY count(d.id) DESC;")
+    List<DestinationStationRFCountProjection> findDepartureStationRFCountTreeByDepartureWayAndConsignor(String departureWay, String consignor);
+
+    @Query(nativeQuery = true, value = "SELECT d.Owner AS owner, d.Operator AS operator, count(d.id) AS count " +
+            "FROM departures AS d " +
+            "WHERE d.DepartureWay = ? AND d.Consignor = ? " +
+            "GROUP BY d.Owner, d.Operator " +
+            "ORDER BY count(d.id) DESC;")
+    List<OwnersCountProjection> findOwnersCountTreeByDepartureWayAndConsignor(String departureWay, String consignor);
 }
