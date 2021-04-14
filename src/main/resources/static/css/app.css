@@ -176,10 +176,15 @@ table::-webkit-scrollbar-thumb{
                         /*uploadExel*/
 #labelUploadExcel{
     text-align: center;
+    margin: auto 0;
+}
+
+#labelUploadExcel .attention {
+    font-size: 20px;
 }
 
 #excelFile{
-    margin: 10px auto;
+    margin: auto !important;
 }
 
 #labelUploadExcel em{
@@ -188,9 +193,39 @@ table::-webkit-scrollbar-thumb{
 }
 
 /*Добавить файл*/
-.mainForm input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
-.labelUp{width:120px;border:2px dashed #2a2f33;border-radius:5px;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center;}
-.labelUp i{display:block;font-size:42px;padding-bottom:16px}
-.labelUp i,.example-1 .label .title{color: #1e1f22;transition:200ms color}
-.labelUp:hover{border:2px solid #000}
-.labelUp:hover i,.label:hover .title{color:#000}
+.mainForm input[type=file]{
+    outline:0;
+    opacity:0;
+    pointer-events:none;
+    user-select:none
+}
+
+.labelUp{
+    margin: auto !important;
+    width:120px;
+    border:2px dashed #2a2f33;
+    border-radius:5px;
+    padding:1.2em;
+    transition:border 300ms ease;
+    cursor:pointer;
+    text-align:center;
+}
+
+.labelUp i {
+    display:block;
+    font-size:42px;
+    padding-bottom:16px
+}
+
+.labelUp i,.example-1 .label .title{
+    color: #1e1f22;
+    transition:200ms color
+}
+
+.labelUp:hover{
+    border:2px solid #000;
+}
+
+.labelUp:hover i,.label:hover .title{
+    color:#000;
+}
