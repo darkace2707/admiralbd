@@ -32,7 +32,7 @@
             <th>Станция отправления РФ</th>
             <th class = "CellCount">Количество</th>
         </tr>
-        <tr th:each="node : ${departureStationRFTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getPid()}">
+        <tr th:each="node : ${departureStationRFTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getParentId()}">
             <td class='cellsName' th:text="${node.getText()}">name</td>
             <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
         </tr>
@@ -69,7 +69,7 @@
             <th>Собственники</th>
             <th class = "CellCount">Количество</th>
         </tr>
-        <tr th:each="node : ${ownersTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getPid()}">
+        <tr th:each="node : ${ownersTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getParentId()}">
             <td class='cellsName' th:text="${node.getText()}">name</td>
             <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
         </tr>

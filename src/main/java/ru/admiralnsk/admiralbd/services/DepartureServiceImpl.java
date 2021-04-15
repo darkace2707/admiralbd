@@ -58,7 +58,7 @@ public class DepartureServiceImpl implements DepartureService {
 
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i+1), 0));
+            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i + 1), 0));
         }
 
         for (DeparturesCountProjection departuresCount : departuresCountList) {
@@ -137,40 +137,42 @@ public class DepartureServiceImpl implements DepartureService {
         List<DestinationStationRFCountProjection> departureStationRFCountTree =
                 departureRepository.findDepartureStationRFCountTreeByDepartureWayAndConsignor(departureWay, consignor);
 
+        return getNodesForDepartureStationRFTree(departureStationRFCountTree);
+    }
+
+    private List<Node> getNodesForDepartureStationRFTree(
+            List<DestinationStationRFCountProjection> departureStationRFCountTree
+    ) {
+        List<Node> nodes = new ArrayList<>();
+
         Set<String> departureStationRFSet = departureStationRFCountTree.stream()
                 .map(DestinationStationRFCountProjection::getDepartureStationRF).collect(Collectors.toSet());
-
-        AtomicInteger overall = new AtomicInteger(0);
-        departureStationRFCountTree.forEach(d -> overall.addAndGet(d.getCount()));
-
-        List<Node> nodes = new ArrayList<>();
 
         for (String departureStationRF : departureStationRFSet) {
 
             AtomicInteger departureStationRFCount = new AtomicInteger(0);
-            List<String> destinationWays = departureStationRFCountTree.stream()
+            Set<String> destinationWays = departureStationRFCountTree.stream()
                     .filter(d -> d.getDepartureStationRF().equals(departureStationRF))
                     .peek(d -> departureStationRFCount.addAndGet(d.getCount()))
                     .map(DestinationStationRFCountProjection::getDestinationWay)
-                    .distinct()
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toSet());
 
             nodes.add(new Node(
                     departureStationRF + Constants.FIRST_LAYER,
                     "0",
                     departureStationRF,
-                    String.valueOf(departureStationRFCount)));
+                    String.valueOf(departureStationRFCount)
+            ));
 
             for (String destinationWay : destinationWays) {
 
                 AtomicInteger destinationWayCount = new AtomicInteger(0);
-                List<String> destinationStationRFList = departureStationRFCountTree.stream()
+                Set<String> destinationStationRFList = departureStationRFCountTree.stream()
                         .filter(d -> d.getDepartureStationRF().equals(departureStationRF) &&
                                 d.getDestinationWay().equals(destinationWay))
                         .peek(d -> destinationWayCount.addAndGet(d.getCount()))
                         .map(DestinationStationRFCountProjection::getDestinationStationRF)
-                        .distinct()
-                        .collect(Collectors.toList());
+                        .collect(Collectors.toSet());
 
                 nodes.add(new Node(
                         destinationWay + Constants.SECOND_LAYER,
@@ -184,14 +186,14 @@ public class DepartureServiceImpl implements DepartureService {
                             destinationWay + Constants.SECOND_LAYER,
                             destinationStationRF,
                             String.valueOf(departureStationRFCountTree.stream()
-                                    .filter( d -> d.getDepartureStationRF().equals(departureStationRF) &&
+                                    .filter(d -> d.getDepartureStationRF().equals(departureStationRF) &&
                                             d.getDestinationWay().equals(destinationWay) &&
                                             d.getDestinationStationRF().equals(destinationStationRF))
-                                    .map(DestinationStationRFCountProjection::getCount).findFirst().orElse(0))));
+                                    .map(DestinationStationRFCountProjection::getCount).findFirst().orElse(0))
+                    ));
                 }
             }
         }
-
         return nodes;
     }
 
@@ -200,6 +202,10 @@ public class DepartureServiceImpl implements DepartureService {
         List<OwnersCountProjection> ownersCountProjectionList =
                 departureRepository.findOwnersCountTreeByDepartureWayAndConsignor(departureWay, consignor);
 
+        return getNodesForOwnersTree(ownersCountProjectionList);
+    }
+
+    private List<Node> getNodesForOwnersTree(List<OwnersCountProjection> ownersCountProjectionList) {
         Set<String> ownersSet = ownersCountProjectionList.stream()
                 .map(OwnersCountProjection::getOwner).collect(Collectors.toSet());
 
@@ -226,7 +232,7 @@ public class DepartureServiceImpl implements DepartureService {
                         owner + Constants.FIRST_LAYER,
                         operator,
                         String.valueOf(ownersCountProjectionList.stream()
-                                .filter( d -> d.getOwner().equals(owner) &&
+                                .filter(d -> d.getOwner().equals(owner) &&
                                         d.getOperator().equals(operator))
                                 .map(OwnersCountProjection::getCount).findFirst().orElse(0))));
             }
