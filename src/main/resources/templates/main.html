@@ -9,7 +9,7 @@
 <!--    <link href="../static/css/app.css" rel="stylesheet" type="text/css">-->
 </head>
 <body>
-<form class="mainForm" th:method="GET" th:action="@{/departures/consignorView}" th:object="${formData}">
+<form class="form main-form" th:method="GET" th:action="@{/departures/consignorView}" th:object="${formData}">
         <div class="label">Дорога Отправления:</div>
         <select class ="selector" disabled name="departureWay" required th:field="*{departureWay}">
             <option th:value="disabled" selected><span>Выберите дорогу отправления</span></option>
@@ -20,7 +20,7 @@
         <select class ="selector" disabled name="consignor" th:field="*{consignor}">
             <option selected th:value="disabled">Выберите грузоотправителя</option>
         </select>
-    <input class="buttonBack buttInf" type="submit" value="Показать информацию"/>
+    <input class="button butt-form" type="submit" value="Показать информацию"/>
 </form>
 <script type="text/javascript" th:src="@{/js/app.js}"></script>
 </body>
