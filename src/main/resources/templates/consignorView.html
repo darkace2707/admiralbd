@@ -10,21 +10,21 @@
 <body>
 <div class="badge" id="badge1" th:text="${departureWay}">Дорога отправления</div>
 <div class="badge" id="badge2" th:text="${consignor}">Отправитель</div>
-<a th:href="@{/departures}"  class="badge buttonBack">Назад</a>
+<a th:href="@{/departures}"  class="button butt-back">Назад</a>
 <br><br>
 <div id="Tables">
-    <table id="table1" border="1">
+    <table id="table1" class="tables" border="1">
         <tr class="line1">
             <th>Месяц</th>
-            <th class="CellCount">Количество</th>
+            <th class="cell-count">Количество</th>
         </tr>
         <tr th:each="monthCount : ${monthsCount}">
-            <td  th:text="${monthCount.getName()}" class="cellsName">month</td>
-            <td th:text="${monthCount.getValue()}" class="cellsQuantity" >quantity</td>
+            <td  th:text="${monthCount.getName()}" class="cells-name">month</td>
+            <td th:text="${monthCount.getValue()}" class="cells-quantity" >quantity</td>
         </tr>
     </table>
 
-    <table id="table2" border="1">
+    <table id="table2" class="tables" border="1">
         <tr class="line1">
             <th><div>Название</div></th>
             <th class="CellCount">Количество</th>
@@ -39,30 +39,30 @@
         <tr><td>1111111111111</td><td>11111111111111</td></tr>
     </table>
 
-    <table id="table3" border="1">
+    <table id="table3" class="tables" border="1">
         <tr class="line1">
             <th>Груз</th>
-            <th class="CellCount">Количество</th>
+            <th class="cell-count">Количество</th>
         </tr>
         <tr th:each="CargoTypeCount : ${CargoTypesCount}">
-            <td  th:text="${CargoTypeCount.getName()}" class="cellsName">month</td>
-            <td  th:text="${CargoTypeCount.getValue()}" class="cellsQuantity">quantity</td>
+            <td  th:text="${CargoTypeCount.getName()}" class="cells-name">month</td>
+            <td  th:text="${CargoTypeCount.getValue()}" class="cells-quantity">quantity</td>
         </tr>
     </table>
 
     <br>
-    <table id="table4" border="1">
+    <table id="table4" class="tables" border="1">
         <tr class="line1">
             <th>Грузополучатель</th>
-            <th class="CellCount">Количество</th>
+            <th class="cell-count">Количество</th>
         </tr>
         <tr th:each="consigneeCount : ${consigneesCount}">
-            <td  th:text="${consigneeCount.getName()}" class="cellsName">>month</td>
-            <td  th:text="${consigneeCount.getValue()}" class="cellsQuantity">quantity</td>
+            <td  th:text="${consigneeCount.getName()}" class="cells-name">>month</td>
+            <td  th:text="${consigneeCount.getValue()}" class="cells-quantity">quantity</td>
         </tr>
     </table>
 
-    <table id="table5" border="1">
+    <table id="table5" class="tables" border="1">
         <tr class="line1">
             <th>Название</th>
             <th class="CellCount">Количество</th>
@@ -76,14 +76,14 @@
         <tr><td>1111111111111</td><td>11111111111111</td></tr>
         <tr><td>1111111111111</td><td>11111111111111</td></tr>
     </table>
-    <table id="table6" border="1">
+    <table id="table6" class="tables" border="1">
         <tr class="line1">
             <th>Вид вагона</th>
-            <th class="CellCount">Количество</th>
+            <th class="cell-count">Количество</th>
         </tr>
         <tr th:each="CarriageKindCount : ${CarriageKindsCount}">
-            <td  th:text="${CarriageKindCount.getName()}" class="cellsName">month</td>
-            <td  th:text="${CarriageKindCount.getValue()}" class="cellsQuantity">quantity</td>
+            <td  th:text="${CarriageKindCount.getName()}" class="cells-name">month</td>
+            <td  th:text="${CarriageKindCount.getValue()}" class="cells-quantity">quantity</td>
         </tr>
     </table>
 </div>

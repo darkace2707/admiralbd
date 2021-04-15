@@ -4,10 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorFormRequest;
 import ru.admiralnsk.admiralbd.services.DepartureService;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 @RequiredArgsConstructor
@@ -36,4 +41,17 @@ public class DeparturesController {
         model.addAttribute("CarriageKindsCount", departureService.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor));
         return "consignorView";
     }
+
+    @GetMapping("/uploadExcel")
+    public String uploadExcelGET(Model model) {
+        return "uploadExcel";
+    }
+
+    @PostMapping("/uploadExcel")
+    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException, ExecutionException, InterruptedException {
+        departureService.putDepartures(file);
+        return "redirect:/departures";
+    }
+
+
 }

@@ -3,18 +3,18 @@ package ru.admiralnsk.admiralbd.parser;
 
 import com.monitorjbl.xlsx.StreamingReader;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.usermodel.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.mappers.DepartureFieldsMapper;
 import ru.admiralnsk.admiralbd.models.Departure;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
-import java.util.function.BiConsumer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
@@ -23,9 +23,9 @@ public class ExcelParser {
 
     private final DepartureFieldsMapper departureFieldsMapper;
 
-    public List<Departure> readFromExcel(File excelFile) throws IOException {
+    public List<Departure> readFromExcel(MultipartFile excelFile) throws IOException {
 
-        InputStream is = new FileInputStream(excelFile);
+        InputStream is = excelFile.getInputStream();
         List<Departure> departureList = new ArrayList<>();
 
         try (Workbook workbook = StreamingReader.builder().rowCacheSize(30).open(is)) {

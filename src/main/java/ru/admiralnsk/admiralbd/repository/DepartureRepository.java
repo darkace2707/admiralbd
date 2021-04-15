@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -56,4 +57,9 @@ public interface DepartureRepository extends JpaRepository<Departure, Long> {
     @Query(nativeQuery = true, value = "SELECT d.CarriageKind AS name, count(d.id) AS value FROM departures d " +
             "WHERE d.DepartureWay = ? AND d.Consignor IS NULL GROUP BY d.CarriageKind ORDER BY count(d.id) DESC")
     List<DeparturesCountProjection> findCarriageKindByDepartureWayAndConsignorIsNull(String departureWay);
+
+    Boolean existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(Date departureDate,
+                                                                                     Integer carriageNumber,
+                                                                                     String documentNumber,
+                                                                                     Integer cargo);
 }

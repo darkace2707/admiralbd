@@ -1,9 +1,11 @@
 package ru.admiralnsk.admiralbd.models;
 
 import lombok.*;
-import javax.persistence.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 
@@ -55,4 +57,5 @@ public class Departure {
     private Integer carriageKm;
     private Integer volume;
     private Integer rate;
+
 }
