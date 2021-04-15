@@ -202,19 +202,18 @@ table::-webkit-scrollbar-thumb{
 
 .labelUp{
     margin: auto !important;
-    width:120px;
+    width:300px;
     border:2px dashed #2a2f33;
     border-radius:5px;
-    padding:1.2em;
     transition:border 300ms ease;
     cursor:pointer;
     text-align:center;
+    display: inline-block;
 }
 
 .labelUp i {
-    display:block;
+
     font-size:42px;
-    padding-bottom:16px
 }
 
 .labelUp i,.example-1 .label .title{
