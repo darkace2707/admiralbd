@@ -27,11 +27,14 @@
         </tr>
     </table>
 
-
     <table id="table2" class="treeTable">
         <tr class = "line1">
             <th>Станция отправления РФ</th>
             <th class = "CellCount">Количество</th>
+        </tr>
+        <tr th:each="node : ${departureStationRFTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getPid()}">
+            <td class='cellsName' th:text="${node.getText()}">name</td>
+            <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
         </tr>
     </table>
 
@@ -66,6 +69,10 @@
             <th>Собственники</th>
             <th class = "CellCount">Количество</th>
         </tr>
+        <tr th:each="node : ${ownersTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getPid()}">
+            <td class='cellsName' th:text="${node.getText()}">name</td>
+            <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
+        </tr>
     </table>
 
     <table id="table6" border="1">
@@ -87,44 +94,22 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $.ajax({
-            "type": 'get',
-            "url": '/api/departures/departureStationRfTreeTable',
-            "dataType": "json",
-            "success": function (data) {
-                $.each(data, function (idx, obj) {
-                    $("#table2").append("<tr data-tt-id=\"" + obj.nodeId + "\" data-tt-parent-id=\"" + obj.pid + "\"><td class='cellsName'>" + obj.text + "</td><td class='cellsQuantity'>" + obj.href + "</td></tr>");
-                });
+        $.ajax(
                 $("#table2").treetable({
                     expandable: true,
                     initialState: "expanded",
                     clickableNodeNames: true,
                     indent: 15
-                });
-            }
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.ajax({
-            "type": 'get',
-            "url": '/api/departures/ownersTreeTable',
-            "dataType": "json",
-            "success": function (data) {
-                $.each(data, function (idx, obj) {
-                    $("#table5").append("<tr data-tt-id=\"" + obj.nodeId + "\" data-tt-parent-id=\"" + obj.pid + "\"><td class='cellsName'>" + obj.text + "</td><td class='cellsQuantity'>" + obj.href + "</td></tr>");
-                });
+                }),
                 $("#table5").treetable({
                     expandable: true,
                     initialState: "expanded",
                     clickableNodeNames: true,
                     indent: 15
-                });
-            }
-        });
+                })
+        )
     });
 </script>
+
 </body>
 </html>
