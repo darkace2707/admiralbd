@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.Objects;
 
 
 @Getter
@@ -59,16 +58,4 @@ public class Departure {
     private Integer volume;
     private Integer rate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Departure departure = (Departure) o;
-        return departureDate.equals(departure.departureDate) && carriageNumber.equals(departure.carriageNumber) && documentNumber.equals(departure.documentNumber) && cargo.equals(departure.cargo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(departureDate, carriageNumber, documentNumber, cargo);
-    }
 }

@@ -25,7 +25,6 @@ public class ExcelParser {
 
     public List<Departure> readFromExcel(MultipartFile excelFile) throws IOException {
 
-//        InputStream is = new FileInputStream(excelFile);
         InputStream is = excelFile.getInputStream();
         List<Departure> departureList = new ArrayList<>();
 

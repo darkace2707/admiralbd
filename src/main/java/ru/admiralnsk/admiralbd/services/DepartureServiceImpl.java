@@ -142,7 +142,7 @@ public class DepartureServiceImpl implements DepartureService {
     public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         List<Departure> departures = excelParser.readFromExcel(file);
 
-        ForkJoinPool myPool = new ForkJoinPool(32);
+        ForkJoinPool myPool = new ForkJoinPool(Constants.PARALLELISM_LEVEL);
         List<Departure> filteredDepartures =  myPool.submit( () -> departures.parallelStream()
                 .filter(departure -> !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
                         departure.getDepartureDate(),
