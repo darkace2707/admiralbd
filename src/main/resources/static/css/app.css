@@ -14,11 +14,14 @@ table{
     height: 370px;
     overflow-y: scroll;
     overflow-x: hidden;
-    border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0 5px 5px;
     table-layout:fixed;
     width: 412px;
 }
 
+#table2 th:first-child {
+    font-size: 15px !important;
+}
 
 /*Ячейки*/
 th{
@@ -26,7 +29,7 @@ th{
     height: 30px;
     font-size: 20px;
     background-color:  #2a2f33;
-    border-radius: 5px 0px 0px 0px;
+    border-radius: 5px 0 0 0;
     border-right: 1px solid #4d5154;
 
 
@@ -48,8 +51,8 @@ tr:hover{
 }
 .CellCount{
     width: 211px;
-    border-radius: 0px 5px 0px 0px;
-    border-right: 0px;
+    border-radius: 0 5px 0 0;
+    border-right: 0;
 }
 #table2 .CellCount, #table5 .CellCount{
     width: 212px;
@@ -63,7 +66,7 @@ tr:hover{
     font-size: 20px;
     width: 200px;
     text-align: center;
-    border-right: 0px ;
+    border-right: 0;
 }
 .cellsName{
     padding-left: 10px;
@@ -95,7 +98,6 @@ table::-webkit-scrollbar-thumb{
     font-size: 30px;
     padding: 10px;
     margin-bottom: 20px;
-    text-align: center;
     margin-top: 10px;
     border: 2px double #1c1f21;
 
