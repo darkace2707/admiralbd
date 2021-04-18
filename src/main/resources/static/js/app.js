@@ -45,6 +45,7 @@ async function addConsignorsToSelect() {
 
 departureWaySelect.onchange = addConsignorsToSelect;
 
+// Рисуем линии в departureWaySelect
 let n = departureWaySelect.childElementCount
 for (let i = 1; i < n; i++) {
     let hr = document.createElement('hr');
@@ -52,4 +53,4 @@ for (let i = 1; i < n; i++) {
 }
 
 
-addConsignorsToSelect();
+ addConsignorsToSelect();

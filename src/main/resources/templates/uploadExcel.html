@@ -12,7 +12,7 @@
 
 
 
-<form  class="form form-up-excel " th:method="POST" th:action="@{/departures/uploadExcel}" enctype="multipart/form-data">
+<form  class="form form-up-excel " id="formUpEx" th:method="POST" th:action="@{/departures/uploadExcel}" enctype="multipart/form-data">
     <div id="labelUploadExcel" class="label">Загрузите Excel файл с отправлениями
     <br>
         <span class="attention">Загрузка может занять до 10 минут!</span>
@@ -22,12 +22,17 @@
     <label class="label label-pict">
         <span class="title">Добавить файл</span>
         <i class="material-icons">attach_file</i>
-        <input id="excelFile" name="exelFile" type="file">
+        <input id="excelFile" name="excelFile" type="file">
     </label>
 
-<br>
-    <input class ="button butt-form" type="submit" value="Отправить">
+    <input class ="button butt-form" id="buttSend" type="submit" value="Отправить">
 </form>
+<br>
 
+<div class = "loader" id="loader">
+<div id="loader-circle"></div>
+<div class="label">Идет загрузка данных, не закрывайте страницу.<br> После ее завершения вы вернетесь обратно.</div>
+</div>
+<script type="text/javascript" th:src="@{/js/appUploadExcel.js}"></script>
 </body>
 </html>
