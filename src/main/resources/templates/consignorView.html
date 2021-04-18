@@ -25,18 +25,18 @@
         </tr>
     </table>
 
-    <table id="table2" class="treeTable">
+    <table id="table2" class="tables">
         <tr class = "line1">
             <th>Станция отправления РФ</th>
             <th class = "cell-count">Количество</th>
         </tr>
         <tr th:each="node : ${departureStationRFTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getParentId()}">
-            <td class='cellsName' th:text="${node.getText()}">name</td>
-            <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
+            <td class='cells-name' th:text="${node.getText()}">name</td>
+            <td class='cells-quantity' th:text="${node.getHref()}">value</td>
         </tr>
     </table>
 
-    <table id="table3" border="1">
+    <table id="table3" class="tables" border="1">
         <tr class="line1">
             <th>Груз</th>
             <th class="cell-count">Количество</th>
@@ -60,14 +60,14 @@
     </table>
 
 
-    <table id="table5" class="treeTable">
+    <table id="table5" class="tables">
         <tr class = "line1">
             <th>Собственники</th>
             <th class = "cell-count">Количество</th>
         </tr>
         <tr th:each="node : ${ownersTree}" th:data-tt-id="${node.getNodeId()}" th:data-tt-parent-id="${node.getParentId()}">
-            <td class='cellsName' th:text="${node.getText()}">name</td>
-            <td class='cellsQuantity' th:text="${node.getHref()}">value</td>
+            <td class='cells-name' th:text="${node.getText()}">name</td>
+            <td class='cells-quantity' th:text="${node.getHref()}">value</td>
         </tr>
     </table>
 

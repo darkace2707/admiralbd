@@ -83,7 +83,7 @@ body {
     padding: 10px;
 }
 
-.badge{
+.badge {
     background-color: #2a2f33;
     border-radius: 10px;
     margin-left: 20px;
@@ -95,7 +95,7 @@ body {
     border: 2px double #1c1f21;
 }
 
-.tables{
+.tables {
     margin: 30px 50px;
     display: inline-block;
     color:white;
@@ -139,7 +139,7 @@ tr:hover:not(.line1){
     border-radius: 0 5px 0 0;
     border-right: 0;
 }
-#table2 .CellCount, #table5 .CellCount{
+#table2 .cell-count, #table5 .cell-count{
     width: 212px;
 }
 
