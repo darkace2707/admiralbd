@@ -21,3 +21,4 @@ public class DeparturesRestController {
         return departureService.findDistinctConsignorsByDepartureWay(departureWay);
     }
 }
+

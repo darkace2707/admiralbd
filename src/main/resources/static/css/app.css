@@ -1,8 +1,9 @@
 
-body{
+body {
     background-color: #78808f;
 }
-.form{
+
+.form {
     margin-top: 10%;
     margin-left: 33%;
     margin-right: 33%;
@@ -11,7 +12,7 @@ body{
     flex-direction: column;
 }
 
-.label{
+.label {
     margin: 0;
     padding: 0;
     font-size: 25px;
@@ -19,7 +20,7 @@ body{
     color: #1c1f21;
 }
 
-.selector{
+.selector {
     background-color: #2a2f33;
     border-radius: 10px;
     text-align: center;
@@ -29,21 +30,25 @@ body{
     border: 2px double #1c1f21;
     color:white;
 }
+
 .selector:disabled {
     background-color: #474d52;
     color: grey;
 }
-.selector:disabled:hover{
+
+.selector:disabled:hover {
     cursor: default;
 }
-.selector:hover{
+
+.selector:hover {
     cursor: pointer;
 }
-.selector:checked{
+
+.selector:checked {
     border: 0;
 }
 
-.button{
+.button {
     background-color: #3f444d;
     color: white;
     text-decoration-line: none;
@@ -56,20 +61,24 @@ body{
     margin-right: 20px;
     border:2px double #2a2f33;
 }
-.button:hover{
+
+.button:hover {
     background-color: #525863;
     cursor: pointer;
     color: white;
 }
-.button:active{
+
+.button:active {
     background-color:#2a2f33 ;
 }
-.form .butt-form{
+
+.form .butt-form {
     margin: 15px auto auto;
     padding: 10px;
     width: 70%;
 }
-.butt-back{
+
+.butt-back {
     margin-top: 10px;
     padding: 10px;
 }
@@ -82,7 +91,6 @@ body{
     font-size: 30px;
     padding: 10px;
     margin-bottom: 20px;
-    text-align: center;
     margin-top: 10px;
     border: 2px double #1c1f21;
 }
@@ -95,18 +103,25 @@ body{
     height: 370px;
     overflow-y: scroll;
     overflow-x: hidden;
-    border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0 5px 5px;
     table-layout:fixed;
     width: 412px;
 }
+
+#table2 th:first-child {
+    font-size: 15px !important;
+}
+
+/*Ячейки*/
 th{
     width:200px;
     height: 30px;
     font-size: 20px;
     background-color:  #2a2f33;
-    border-radius: 5px 0px 0px 0px;
+    border-radius: 5px 0 0 0;
     border-right: 1px solid #4d5154;
 }
+
 td{
     padding: 5px;
     width:200px;
@@ -115,14 +130,19 @@ td{
     text-align: left;
     overflow: hidden;
 }
+
 tr:hover:not(.line1){
     background-color: #525863
 }
 .cell-count{
     width: 211px;
-    border-radius: 0px 5px 0px 0px;
-    border-right: 0px;
+    border-radius: 0 5px 0 0;
+    border-right: 0;
 }
+#table2 .CellCount, #table5 .CellCount{
+    width: 212px;
+}
+
 .line1{
     margin-top: -30px;
     position: absolute;
@@ -131,29 +151,27 @@ tr:hover:not(.line1){
     font-size: 20px;
     width: 200px;
     text-align: center;
+    border-right: 0;
 }
+
 .cells-name{
     padding-left: 10px;
 }
+
 #table1 td.cells-name, #table6 td.cells-name{
     font-size: 17px;
 }
+
 /*Прокрутка таблицы*/
 table::-webkit-scrollbar{
     width: 10px;
     background-color: #2a2f33;
+
 }
 table::-webkit-scrollbar-thumb{
     background-color:#3f444d;
 }
 
-
-
-                                                               /* main.html*/
-
-
-
-                                                            /*consignorView.html*/
 #Tables{
     text-align: center;
 }
@@ -175,12 +193,14 @@ table::-webkit-scrollbar-thumb{
 #excelFile{
     margin: auto !important;
 }
+
 .form-up-excel input[type=file]{
     outline:0;
     opacity:0;
     pointer-events:none;
     user-select:none
 }
+
 .form-up-excel .label-pict{
     margin: auto;
     width:300px;
@@ -192,17 +212,20 @@ table::-webkit-scrollbar-thumb{
     display: inline-block;
     height: 70px;
 }
+
 .form-up-excel .label-pict .title{
     padding-left: 30px;
     float: left;
     padding-top: 12px;
 }
+
 .form-up-excel .label-pict i {
     font-size: 42px;
     padding-top: 10px;
     padding-right: 30px;
     float:right;
 }
+
 .form-up-excel .label-pict i,.form-up-excel .label-pict .title{
     color: #1e1f22;
     transition:200ms color

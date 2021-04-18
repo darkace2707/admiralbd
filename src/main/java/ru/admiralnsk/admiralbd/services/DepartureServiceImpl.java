@@ -9,6 +9,7 @@ import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
+import ru.admiralnsk.admiralbd.models.*;
 import ru.admiralnsk.admiralbd.repository.DepartureRepository;
 
 import java.io.IOException;
@@ -17,6 +18,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -64,7 +68,7 @@ public class DepartureServiceImpl implements DepartureService {
 
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i+1), 0));
+            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i + 1), 0));
         }
 
         for (DeparturesCountProjection departuresCount : departuresCountList) {
@@ -152,5 +156,113 @@ public class DepartureServiceImpl implements DepartureService {
                 .collect(Collectors.toList())).get();
 
         departureRepository.saveAll(filteredDepartures);
+    }
+
+    @Override
+    public List<Node> findDepartureStationRFCountTreeByDepartureWayAndConsignor(String departureWay, String consignor) {
+        List<DestinationStationRFCountProjection> departureStationRFCountTree =
+                departureRepository.findDepartureStationRFCountTreeByDepartureWayAndConsignor(departureWay, consignor);
+
+        return getNodesForDepartureStationRFTree(departureStationRFCountTree);
+    }
+
+    private List<Node> getNodesForDepartureStationRFTree(
+            List<DestinationStationRFCountProjection> departureStationRFCountTree
+    ) {
+        List<Node> nodes = new ArrayList<>();
+
+        Set<String> departureStationRFSet = departureStationRFCountTree.stream()
+                .map(DestinationStationRFCountProjection::getDepartureStationRF).collect(Collectors.toSet());
+
+        for (String departureStationRF : departureStationRFSet) {
+
+            AtomicInteger departureStationRFCount = new AtomicInteger(0);
+            Set<String> destinationWays = departureStationRFCountTree.stream()
+                    .filter(d -> d.getDepartureStationRF().equals(departureStationRF))
+                    .peek(d -> departureStationRFCount.addAndGet(d.getCount()))
+                    .map(DestinationStationRFCountProjection::getDestinationWay)
+                    .collect(Collectors.toSet());
+
+            nodes.add(new Node(
+                    departureStationRF + Constants.FIRST_LAYER,
+                    "0",
+                    departureStationRF,
+                    String.valueOf(departureStationRFCount)
+            ));
+
+            for (String destinationWay : destinationWays) {
+
+                AtomicInteger destinationWayCount = new AtomicInteger(0);
+                Set<String> destinationStationRFList = departureStationRFCountTree.stream()
+                        .filter(d -> d.getDepartureStationRF().equals(departureStationRF) &&
+                                d.getDestinationWay().equals(destinationWay))
+                        .peek(d -> destinationWayCount.addAndGet(d.getCount()))
+                        .map(DestinationStationRFCountProjection::getDestinationStationRF)
+                        .collect(Collectors.toSet());
+
+                nodes.add(new Node(
+                        destinationWay + Constants.SECOND_LAYER,
+                        departureStationRF + Constants.FIRST_LAYER,
+                        destinationWay,
+                        String.valueOf(destinationWayCount)));
+
+                for (String destinationStationRF : destinationStationRFList) {
+                    nodes.add(new Node(
+                            destinationStationRF + Constants.THIRD_LAYER,
+                            destinationWay + Constants.SECOND_LAYER,
+                            destinationStationRF,
+                            String.valueOf(departureStationRFCountTree.stream()
+                                    .filter(d -> d.getDepartureStationRF().equals(departureStationRF) &&
+                                            d.getDestinationWay().equals(destinationWay) &&
+                                            d.getDestinationStationRF().equals(destinationStationRF))
+                                    .map(DestinationStationRFCountProjection::getCount).findFirst().orElse(0))
+                    ));
+                }
+            }
+        }
+        return nodes;
+    }
+
+    @Override
+    public List<Node> findOwnersCountTreeByDepartureWayAndConsignor(String departureWay, String consignor) {
+        List<OwnersCountProjection> ownersCountProjectionList =
+                departureRepository.findOwnersCountTreeByDepartureWayAndConsignor(departureWay, consignor);
+
+        return getNodesForOwnersTree(ownersCountProjectionList);
+    }
+
+    private List<Node> getNodesForOwnersTree(List<OwnersCountProjection> ownersCountProjectionList) {
+        Set<String> ownersSet = ownersCountProjectionList.stream()
+                .map(OwnersCountProjection::getOwner).collect(Collectors.toSet());
+
+        List<Node> nodes = new ArrayList<>();
+
+        for (String owner : ownersSet) {
+            AtomicInteger ownersCount = new AtomicInteger(0);
+            List<String> operatorList = ownersCountProjectionList.stream()
+                    .filter(o -> o.getOwner().equals(owner))
+                    .peek(o -> ownersCount.addAndGet(o.getCount()))
+                    .map(OwnersCountProjection::getOperator)
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            nodes.add(new Node(
+                    owner + Constants.FIRST_LAYER,
+                    "0",
+                    owner,
+                    String.valueOf(ownersCount)));
+
+            for (String operator : operatorList) {
+                nodes.add(new Node(
+                        operator + Constants.SECOND_LAYER,
+                        owner + Constants.FIRST_LAYER,
+                        operator,
+                        String.valueOf(ownersCountProjectionList.stream()
+                                .filter(d -> d.getOwner().equals(owner) &&
+                                        d.getOperator().equals(operator))
+                                .map(OwnersCountProjection::getCount).findFirst().orElse(0))));
+            }
+        }
+        return nodes;
     }
 }

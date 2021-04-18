@@ -35,10 +35,20 @@ public class DeparturesController {
 
         model.addAttribute("departureWay", departureWay);
         model.addAttribute("consignor", consignor);
-        model.addAttribute("monthsCount", departureService.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor));
-        model.addAttribute("consigneesCount", departureService.findConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor));
-        model.addAttribute("CargoTypesCount", departureService.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor));
-        model.addAttribute("CarriageKindsCount", departureService.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("monthsCount",
+                departureService.findDeparturesCountByDepartureWayAnAndConsignorAllMonth(departureWay, consignor));
+        model.addAttribute("consigneesCount",
+                departureService.findConsigneeCountWithDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("CargoTypesCount",
+                departureService.findCargoTypeByDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("CarriageKindsCount",
+                departureService.findCarriageKindByDepartureWayAndConsignor(departureWay, consignor));
+
+        model.addAttribute("departureStationRFTree",
+                departureService.findDepartureStationRFCountTreeByDepartureWayAndConsignor(departureWay, consignor));
+        model.addAttribute("ownersTree",
+                departureService.findOwnersCountTreeByDepartureWayAndConsignor(departureWay, consignor));
+
         return "consignorView";
     }
 
