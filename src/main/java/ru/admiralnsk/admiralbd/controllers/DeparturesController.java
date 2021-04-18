@@ -48,7 +48,7 @@ public class DeparturesController {
     }
 
     @PostMapping("/uploadExcel")
-    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException, ExecutionException, InterruptedException {
+    public String submit(@RequestParam("excelFile") MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         departureService.putDepartures(file);
         return "redirect:/departures";
     }
