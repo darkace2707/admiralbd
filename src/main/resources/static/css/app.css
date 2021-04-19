@@ -247,6 +247,7 @@ table::-webkit-scrollbar-thumb{
     transform: translate(-50%, -50%)
 }
 #loader-circle {
+    margin: 20px 0;
     border: 16px solid #3f444d;
     border-radius: 50%;
     border-top: 16px solid #1c1f21;
