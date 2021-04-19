@@ -1,6 +1,7 @@
 package ru.admiralnsk.admiralbd.TestParser;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.testng.Assert;
@@ -15,7 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
+@SpringBootTest
 public class ExcelParserTest {
 
     @Test
