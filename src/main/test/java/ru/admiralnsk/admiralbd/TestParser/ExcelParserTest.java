@@ -11,22 +11,28 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.mappers.DepartureFieldsMapper;
 import ru.admiralnsk.admiralbd.models.Departure;
-
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
 
 import org.springframework.mock.web.MockMultipartFile;
+import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
 
 
 public class ExcelParserTest {
 
     @Test
-    public void readFromExcel() throws IOException {
+    public void readFromExcel() throws IOException, ExcelNotStructuredException {
 
         ExcelParser excelParser = new ExcelParser(new DepartureFieldsMapper());
         MultipartFile file = new MockMultipartFile("TestExcel.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel.xlsx")));
+        ExcelParser excelParser1 = new ExcelParser(new DepartureFieldsMapper());
+        MultipartFile file1 = new MockMultipartFile("TestExcel1.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel1.xlsx")));
+        Throwable thrown = assertThrows(ExcelNotStructuredException.class, () -> excelParser1.readFromExcel(file1));
+        Assert.assertEquals("Incorrect file structure", thrown.getMessage());
         List<Departure> departureList = new ArrayList<>();
         List<Departure> departureListTest = excelParser.readFromExcel(file);
         Departure departureOne = Departure.builder()
