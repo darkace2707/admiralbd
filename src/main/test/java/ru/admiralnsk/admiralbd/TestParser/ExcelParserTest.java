@@ -1,11 +1,7 @@
 package ru.admiralnsk.admiralbd.TestParser;
 
-import com.monitorjbl.xlsx.StreamingReader;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,36 +11,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.mappers.DepartureFieldsMapper;
 import ru.admiralnsk.admiralbd.models.Departure;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.*;
 import java.text.DateFormat;
 import java.util.*;
 
 import org.springframework.mock.web.MockMultipartFile;
-import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
 
 
 public class ExcelParserTest {
 
     @Test
-    public void readFromExcel() throws IOException, ExcelNotStructuredException {
+    public void readFromExcel() throws IOException {
 
         ExcelParser excelParser = new ExcelParser(new DepartureFieldsMapper());
-        ExcelParser excelParser1 = new ExcelParser(new DepartureFieldsMapper());
-
         MultipartFile file = new MockMultipartFile("TestExcel.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel.xlsx")));
-        MultipartFile file1 = new MockMultipartFile("TestExcel1.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel1.xlsx")));
-
-        Throwable thrown = assertThrows(ExcelNotStructuredException.class, () -> excelParser1.readFromExcel(file1));
-        Assert.assertEquals("Incorrect file structure", thrown.getMessage());
-
         List<Departure> departureList = new ArrayList<>();
         List<Departure> departureListTest = excelParser.readFromExcel(file);
-
-
-
         Departure departureOne = Departure.builder()
                 .departureDate((new GregorianCalendar(2020, 0, 1)).getTime())
                 .carriageNumber(29064888)
@@ -198,21 +182,5 @@ public class ExcelParserTest {
             Assert.assertEquals(departureListTest.get(i).getVolume(), departureList.get(i).getVolume());
             Assert.assertEquals(departureListTest.get(i).getRate(), departureList.get(i).getRate());
         }
-
-
     }
-   // @Test
-    /*private boolean isExcelFileStructureRight()throws IOException {
-        ExcelParser excelParser = new ExcelParser(new DepartureFieldsMapper());
-        MultipartFile fileRight = new MockMultipartFile("TestExcel.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel.xlsx")));
-        MultipartFile fileNotRight = new MockMultipartFile("TestExcel.xlsx", new FileInputStream(new File("src/main/test/resources/TestExcel.xlsx")));
-        InputStream is = fileRight.getInputStream();
-        List<Departure> departureList = new ArrayList<>();
-
-        try (Workbook workbook = StreamingReader.builder().rowCacheSize(30).open(is)) {
-            Sheet sheet1=workbook.getSheetAt(0);
-        }
-
-                return true;
-    }*/
 }
