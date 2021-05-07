@@ -2,6 +2,7 @@ package ru.admiralnsk.admiralbd.services;
 
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
+import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,5 +24,5 @@ public interface DepartureService {
 
     List<DeparturesCount> findCarriageKindByDepartureWayAndConsignor(String departureWay, String consignor);
 
-    void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException;
+    void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException, ExcelNotStructuredException;
 }

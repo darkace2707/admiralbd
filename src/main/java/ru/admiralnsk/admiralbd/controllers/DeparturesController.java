@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.models.DepartureWayAndConsignorFormRequest;
+import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.services.DepartureService;
 
 import java.io.IOException;
@@ -48,7 +49,7 @@ public class DeparturesController {
     }
 
     @PostMapping("/uploadExcel")
-    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException, ExecutionException, InterruptedException {
+    public String submit(@RequestParam("excelFile") MultipartFile file, Model model) throws IOException, ExecutionException, InterruptedException, ExcelNotStructuredException {
         departureService.putDepartures(file);
         return "redirect:/departures";
     }
