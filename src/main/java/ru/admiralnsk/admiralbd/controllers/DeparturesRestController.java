@@ -1,6 +1,7 @@
 package ru.admiralnsk.admiralbd.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ public class DeparturesRestController {
     private final DepartureService departureService;
 
     @GetMapping("/consignors")
+    @PreAuthorize("hasAuthority('departures:read')")
     public List<String> getDistinctConsignors(@RequestParam("departureWay") String departureWay) {
         return departureService.findDistinctConsignorsByDepartureWay(departureWay);
     }

@@ -1,6 +1,7 @@
 package ru.admiralnsk.admiralbd.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class DeparturesController {
     private final DepartureService departureService;
 
     @GetMapping("")
+    @PreAuthorize("hasAuthority('departures:read')")
     public String main(Model model) {
         model.addAttribute("formData", new DepartureWayAndConsignorFormRequest());
         model.addAttribute("departureWays", departureService.findDistinctDepartureWays());
@@ -30,6 +32,7 @@ public class DeparturesController {
     }
 
     @GetMapping("/consignorView")
+    @PreAuthorize("hasAuthority('departures:read')")
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
 
@@ -53,11 +56,13 @@ public class DeparturesController {
     }
 
     @GetMapping("/uploadExcel")
+    @PreAuthorize("hasAuthority('departures:write')")
     public String uploadExcelGET(Model model) {
         return "uploadExcel";
     }
 
     @PostMapping("/uploadExcel")
+    @PreAuthorize("hasAuthority('departures:write')")
     public String submit(@RequestParam("excelFile") MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         departureService.putDepartures(file);
         return "redirect:/departures";
