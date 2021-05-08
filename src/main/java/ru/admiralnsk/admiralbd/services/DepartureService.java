@@ -1,8 +1,8 @@
 package ru.admiralnsk.admiralbd.services;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.admiralnsk.admiralbd.exceptions.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
-import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 
 import java.io.IOException;
 import java.util.List;

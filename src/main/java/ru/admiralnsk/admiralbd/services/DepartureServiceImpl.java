@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.constants.Constants;
+import ru.admiralnsk.admiralbd.exceptions.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.Departure;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.DeparturesCountProjection;
-import ru.admiralnsk.admiralbd.parser.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
 import ru.admiralnsk.admiralbd.repository.DepartureRepository;
 
@@ -65,7 +65,7 @@ public class DepartureServiceImpl implements DepartureService {
 
         List<DeparturesCount> formattedDeparturesCountList = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
-            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i+1), 0));
+            formattedDeparturesCountList.add(new DeparturesCount(Months.getMonthName(i + 1), 0));
         }
 
         for (DeparturesCountProjection departuresCount : departuresCountList) {
@@ -140,24 +140,23 @@ public class DepartureServiceImpl implements DepartureService {
     }
 
     @Override
-    public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException,ExcelNotStructuredException {
+    public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException, ExcelNotStructuredException {
 
-        try{
+        try {
             List<Departure> departures = excelParser.readFromExcel(file);
             ForkJoinPool myPool = new ForkJoinPool(Constants.PARALLELISM_LEVEL);
-            List<Departure> filteredDepartures =  myPool.submit( () -> departures.parallelStream()
-                    .filter(departure -> !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
+            List<Departure> filteredDepartures = myPool.submit(() -> departures.parallelStream()
+                    .filter(departure ->
+                            !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
                             departure.getDepartureDate(),
                             departure.getCarriageNumber(),
                             departure.getDocumentNumber(),
                             departure.getCargo()))
                     .collect(Collectors.toList())).get();
             departureRepository.saveAll(filteredDepartures);
-        }catch (ExcelNotStructuredException E){
+        } catch (ExcelNotStructuredException E) {
             System.out.println(E.getMessage());
         }
-
-
 
 
     }

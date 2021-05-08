@@ -1,4 +1,4 @@
-package ru.admiralnsk.admiralbd.parser;
+package ru.admiralnsk.admiralbd.exceptions;
 
 public class ExcelNotStructuredException extends Exception{
 
