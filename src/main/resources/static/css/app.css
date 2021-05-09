@@ -281,3 +281,11 @@ table::-webkit-scrollbar-thumb{
     float: right;
 }
 
+
+.login-input {
+}
+
+.login-form {
+    margin-left: 40%;
+    margin-right: 40%;
+}
