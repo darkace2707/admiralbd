@@ -31,7 +31,7 @@ public class DeparturesController {
         return "main";
     }
 
-    @GetMapping("/consignorView")
+    @GetMapping("/consignor-view")
     @PreAuthorize("hasAuthority('departures:read')")
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
@@ -52,16 +52,16 @@ public class DeparturesController {
         model.addAttribute("ownersTree",
                 departureService.findOwnersCountTreeByDepartureWayAndConsignor(departureWay, consignor));
 
-        return "consignorView";
+        return "consignor-view";
     }
 
-    @GetMapping("/uploadExcel")
+    @GetMapping("/upload-excel")
     @PreAuthorize("hasAuthority('departures:write')")
     public String uploadExcelGET(Model model) {
-        return "uploadExcel";
+        return "upload-excel";
     }
 
-    @PostMapping("/uploadExcel")
+    @PostMapping("/upload-excel")
     @PreAuthorize("hasAuthority('departures:write')")
     public String submit(@RequestParam("excelFile") MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         departureService.putDepartures(file);

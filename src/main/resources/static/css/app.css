@@ -289,3 +289,68 @@ table::-webkit-scrollbar-thumb{
     margin-left: 40%;
     margin-right: 40%;
 }
+
+.users {
+    background-color: #6c7380;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 33%;
+    margin-right: 33%;
+    border: 2px solid #1c1f21;
+    border-radius: 5px;
+}
+
+.users .user {
+    font-size: 30px;
+    margin: 15px auto;
+}
+
+.users .user a {
+    color: #1e1f22;
+    text-decoration: none;
+}
+
+.users .user a:hover {
+    color: black;
+}
+
+.users .create-btn {
+    margin: 20px auto;
+}
+
+.users hr {
+    color: black;
+}
+
+.users .label {
+    margin: 20px auto 5px 33%;
+}
+
+.users .selector {
+    margin-left: 33%;
+    margin-right: 33%;
+    cursor: default;
+}
+
+.users .form-delete {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.users .user-button {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.users .user-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.users .list {
+    margin: 20px auto 5px !important;
+}
