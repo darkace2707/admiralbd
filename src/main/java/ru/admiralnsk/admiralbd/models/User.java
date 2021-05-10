@@ -1,15 +1,15 @@
 package ru.admiralnsk.admiralbd.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@ToString
+@Data
 @Entity
 @Table(name="users")
 public class User {
