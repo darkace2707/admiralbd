@@ -7,6 +7,7 @@ public final class Constants {
     public static final String FIRST_LAYER = "_l1";
     public static final String SECOND_LAYER = "_l2";
     public static final String THIRD_LAYER = "_l3";
+    public static final int HASH_ROUNDS = 12;
 
     private Constants() {
     }

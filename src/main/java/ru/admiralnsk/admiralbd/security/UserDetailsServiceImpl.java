@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.admiralnsk.admiralbd.models.User;
 import ru.admiralnsk.admiralbd.repository.UserRepository;
 
-@Service("userDetailsServiceImpl")
+@Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
