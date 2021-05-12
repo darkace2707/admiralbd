@@ -18,7 +18,7 @@ public class DeparturesRestController {
     private final DepartureService departureService;
 
     @GetMapping("/consignors")
-    @PreAuthorize("hasAuthority('departures:read')")
+    @PreAuthorize("hasAuthority('read')")
     public List<String> getDistinctConsignors(@RequestParam("departure-way") String departureWay) {
         return departureService.findDistinctConsignorsByDepartureWay(departureWay);
     }
