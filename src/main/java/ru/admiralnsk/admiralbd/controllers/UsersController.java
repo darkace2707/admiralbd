@@ -10,7 +10,7 @@ import ru.admiralnsk.admiralbd.services.UserService;
 
 @AllArgsConstructor
 @Controller
-@PreAuthorize("hasAuthority('departures:write')")
+@PreAuthorize("hasAuthority('write')")
 @RequestMapping("/users")
 public class UsersController {
 

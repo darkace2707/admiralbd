@@ -15,7 +15,7 @@
     </form>
     <form class="form main-form" th:method="GET" th:action="@{/departures/consignor-view}" th:object="${formData}">
         <div class="label">Дорога Отправления:</div>
-        <select class ="selector" disabled name="departureWay" required th:field="*{departureWay}">
+        <select class ="selector" disabled th:name="departureWay" required th:field="*{departureWay}">
             <option th:value="disabled" selected>Выберите дорогу отправления</option>
             <option th:each="departureWay : ${departureWays}" th:text="${departureWay}" th:value="${departureWay}">departure way</option>
         </select>

@@ -1,8 +1,8 @@
 package ru.admiralnsk.admiralbd.models;
 
 public enum Permission {
-    DEPARTURES_READ("departures:read"),
-    DEPARTURES_WRITE("departures:write");
+    DEPARTURES_READ("read"),
+    DEPARTURES_WRITE("write");
 
     private final String permission;
 

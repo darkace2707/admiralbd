@@ -24,7 +24,7 @@ public class DeparturesController {
     private final DepartureService departureService;
 
     @GetMapping("")
-    @PreAuthorize("hasAuthority('departures:read')")
+    @PreAuthorize("hasAuthority('read')")
     public String main(Model model) {
         model.addAttribute("formData", new DepartureWayAndConsignorFormRequest());
         model.addAttribute("departureWays", departureService.findDistinctDepartureWays());
@@ -32,7 +32,7 @@ public class DeparturesController {
     }
 
     @GetMapping("/consignor-view")
-    @PreAuthorize("hasAuthority('departures:read')")
+    @PreAuthorize("hasAuthority('read')")
     public String show(@RequestParam(name = "departureWay") String departureWay,
                        @RequestParam(name = "consignor") String consignor, Model model) {
 
@@ -56,13 +56,13 @@ public class DeparturesController {
     }
 
     @GetMapping("/upload-excel")
-    @PreAuthorize("hasAuthority('departures:write')")
+    @PreAuthorize("hasAuthority('write')")
     public String uploadExcelGET(Model model) {
         return "upload-excel";
     }
 
     @PostMapping("/upload-excel")
-    @PreAuthorize("hasAuthority('departures:write')")
+    @PreAuthorize("hasAuthority('write')")
     public String submit(@RequestParam("excelFile") MultipartFile file) throws IOException, ExecutionException, InterruptedException {
         departureService.putDepartures(file);
         return "redirect:/departures";
