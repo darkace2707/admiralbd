@@ -7,12 +7,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <link th:href="@{/css/app.css}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>
-
-
-
-<form  class="form form-up-excel " id="formUpEx" th:method="POST" th:action="@{/departures/upload-excel}" enctype="multipart/form-data">
+<div class="badge" id="badge2" style="visibility: hidden">Невидимка</div>
+<a th:href="@{/departures}" id="buttonBack"  class="button butt-back inUpload">Назад</a>
+    <form  class="form form-up-excel " id="formUpEx" th:method="POST" th:action="@{/departures/upload-excel}" enctype="multipart/form-data">
     <div id="labelUploadExcel" class="label">Загрузите Excel файл с отправлениями
     <br>
         <span class="attention">Загрузка может занять до 10 минут!</span>
@@ -28,6 +28,7 @@
     <input class ="button butt-form" id="buttSend" type="submit" value="Отправить">
 </form>
 <br>
+
 
 <div class = "loader" id="loader">
 <div id="loader-circle"></div>

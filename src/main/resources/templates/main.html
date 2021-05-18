@@ -11,7 +11,11 @@
 <body>
 <div class="wrapper">
     <form class="form-login" th:action="@{/auth/logout}" method="POST">
-        <button class="button logout-btn" type="submit" >Выйти</button>
+        <button class="button main-btn" type="submit" >Выйти</button>
+        <th:block th:if="${authorities} == '[read, write]'">
+        <a th:href="@{/departures/upload-excel}"  class="button main-btn">Добавление данных</a>
+        <a th:href="@{/users}"  class="button main-btn">Администрирование</a>
+        </th:block>
     </form>
     <form class="form main-form" th:method="GET" th:action="@{/departures/consignor-view}" th:object="${formData}">
         <div class="label">Дорога Отправления:</div>

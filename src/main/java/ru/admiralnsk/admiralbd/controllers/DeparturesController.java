@@ -2,6 +2,7 @@ package ru.admiralnsk.admiralbd.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,8 @@ public class DeparturesController {
 
     @GetMapping("")
     @PreAuthorize("hasAuthority('read')")
-    public String main(Model model) {
+    public String main(Model model, Authentication authentication) {
+        model.addAttribute("authorities", authentication.getAuthorities().toString());
         model.addAttribute("formData", new DepartureWayAndConsignorFormRequest());
         model.addAttribute("departureWays", departureService.findDistinctDepartureWays());
         return "main";

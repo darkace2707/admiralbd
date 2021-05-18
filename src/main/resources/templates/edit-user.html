@@ -8,6 +8,8 @@
 <!--  <link href="../static/css/app.css" rel="stylesheet" type="text/css">-->
 </head>
 <body>
+<div class="badge" id="badge2" style="visibility: hidden">Невидимка</div>
+<a th:href="@{/users/{id}(id = ${user.getId()})}"  class="button butt-back inUpload">Назад</a>
   <form class="users" th:method="PATCH" th:action="@{/users/{id}(id = ${user.getId()})}" th:object="${user}">
 
     <div class="label">Имя:</div>

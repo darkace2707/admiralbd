@@ -1,5 +1,6 @@
 package ru.admiralnsk.admiralbd.services;
 
+import ru.admiralnsk.admiralbd.models.Role;
 import ru.admiralnsk.admiralbd.models.User;
 
 import java.util.List;

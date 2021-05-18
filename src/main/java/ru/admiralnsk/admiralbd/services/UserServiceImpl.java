@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.admiralnsk.admiralbd.models.Role;
 import ru.admiralnsk.admiralbd.models.User;
 import ru.admiralnsk.admiralbd.repository.UserRepository;
 
@@ -58,4 +59,6 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+
 }
