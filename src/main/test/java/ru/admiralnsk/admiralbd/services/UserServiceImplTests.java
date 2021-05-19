@@ -1,7 +1,7 @@
 package ru.admiralnsk.admiralbd.services;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -12,13 +12,11 @@ import ru.admiralnsk.admiralbd.models.Status;
 import ru.admiralnsk.admiralbd.models.User;
 import ru.admiralnsk.admiralbd.repository.UserRepository;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static ru.admiralnsk.admiralbd.models.Status.ACTIVE;
 
 @SpringBootTest
 class UserServiceImplTests {
@@ -39,9 +37,9 @@ class UserServiceImplTests {
     public void findAllTest()
     {
         List<User> list = new ArrayList<>();
-        User user1 = new User((long)1, "John", "John","12345", Role.USER, ACTIVE);
-        User user2 = new User((long)2, "Alex", "Alex","12345", Role.USER, ACTIVE);
-        User user3 = new User((long)3, "Dima", "Dima","12345", Role.USER, ACTIVE);
+        User user1 = new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        User user2 = new User((long)2, "Alex", "Alex","12345", Role.USER, Status.ACTIVE);
+        User user3 = new User((long)3, "Dima", "Dima","12345", Role.USER, Status.ACTIVE);
 
         list.add(user1);
         list.add(user2);
