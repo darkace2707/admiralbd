@@ -15,7 +15,7 @@ import ru.admiralnsk.admiralbd.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -25,7 +25,7 @@ class UserServiceImplTests {
 
     @Mock
     UserRepository repository;
-    
+
     @Mock
     PasswordEncoder encoder;
 
@@ -45,26 +45,62 @@ class UserServiceImplTests {
         list.add(user2);
         list.add(user3);
 
-        when(repository.findAll()).thenReturn(list);
+        when(repository.findAll()).thenReturn(list); // repository.findAll() терперь возвращает list
 
         //test
         List<User> list2 = service.findAll();
 
-        assertEquals(3, list2.size());
+        assertEquals(list , list2);
         verify(repository, times(1)).findAll();
     }
 
-    /*@Test
-    public void getEmployeeByIdTest()
+    @Test
+    public void findUserByIdTest()
     {
-        when(repository.findById((long)1)).thenReturn(new User((long)1, "John", "John","12345", Role.USER, ACTIVE);
+        User user1= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        when(repository.findById((long)1)).thenReturn(java.util.Optional.of(user1));
 
-        User user = service.findUserById((long)1);
+        User user2 = service.findUserById((long)1);
 
-        assertEquals("John", user.getName());
-        assertEquals("John", user.getLogin());
-        assertEquals("12345", user.getPassword());
-    }*/
+        assertEquals("John", user2.getName());
+        assertEquals("John", user2.getLogin());
+        assertNotEquals("1234", user2.getPassword());
+        assertEquals(user1,user2);
+        verify(repository, times(1)).findById((long)1);
+    }
+
+    @Test
+    public void putUserTest()
+    {
+        User user1= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        service.putUser(user1);
+        verify(repository, times(1)).save(user1);
+    }
+
+    @Test
+    public void updateUserTest()
+    {
+        User user1= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        /*when(repository.save(user1)).thenReturn(user1);
+        User updateUser1= new User((long)1, "AAA", "AAA","12345", Role.USER, Status.ACTIVE);
+        when(repository.save(updateUser1)).thenReturn(updateUser1);
+        User user3, user4;
+        service.putUser(user1);
+        user3 = service.findUserById((long)1);
+        service.updateUser(updateUser1);
+        user4 = service.findUserById((long)1);
+        assertEquals(user3, user4);*/
+        service.putUser(user1);
+        //service.updateUser(user1);
+        verify(repository, times(1)).save(user1);
+    }
+
+    @Test
+    public void deleteUserTest()
+    {
+        service.deleteUserById((long)1);
+        verify(repository, times(1)).deleteById((long)1);
+    }
 
 
 }
