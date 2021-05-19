@@ -2,6 +2,10 @@ package ru.admiralnsk.admiralbd.mappers;
 
 public class Months {
 
+    private Months() {
+
+    }
+
     public static String getMonthName(int month) {
         switch (month) {
             case 1:

@@ -16,10 +16,8 @@
             this.tree = tree;
             this.settings = settings;
 
-            // TODO Ensure id/parentId is always a string (not int)
             this.id = this.row.data(this.settings.nodeIdAttr);
 
-            // TODO Move this to a setParentId function?
             parentId = this.row.data(this.settings.parentIdAttr);
             if (parentId != null && parentId !== "") {
                 this.parentId = parentId;
@@ -68,7 +66,6 @@
             return this.row.hasClass("collapsed");
         };
 
-        // TODO destroy: remove event handlers, expander, indenter, etc.
 
         Node.prototype.expand = function() {
             if (this.expanded()) {
@@ -511,7 +508,6 @@
             var settings = this.data("treetable").settings,
                 tree = this.data("treetable").tree;
 
-            // TODO Switch to $.parseHTML
             rows = $(rows);
 
             if (node == null) { // Inserting new root nodes

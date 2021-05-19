@@ -25,7 +25,7 @@ public class DepartureDAO {
     public List<String> getDistinctDepartureWays() {
         return jdbcTemplate.queryForList("SELECT DISTINCT DepartureWay FROM departures ORDER BY 1", String.class);
     }
-//TODO: обработка null
+
     @Deprecated
     public List<String> getDistinctConsignorsWithDepartureWay(String departureWay) {
         return jdbcTemplate.queryForList("SELECT DISTINCT Consignor FROM departures " +
