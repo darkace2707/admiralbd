@@ -71,7 +71,8 @@ class UserServiceImplTests {
     @Test
     public void initUserTest(){
         User userDispatchedToInit= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
-        User userReturnedFromInit = userService.initUser(userDispatchedToInit);
+        User newUser = new User();
+        User userReturnedFromInit = userService.initUser(newUser,userDispatchedToInit);
         Assertions.assertEquals("John", userReturnedFromInit.getName());
         Assertions.assertEquals("John", userReturnedFromInit.getLogin());
         Assertions.assertEquals(passwordEncoder.encode("12345"), userReturnedFromInit.getPassword());

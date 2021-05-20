@@ -29,22 +29,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void putUser(User user) {
-        User userToSave = this.initUser(user);
-        userRepository.save(userToSave);
+        User newUser = new User();
+        userRepository.save(this.initUser(newUser,user));
     }
 
     @Override
     public void updateUser(User user) {
         if (userRepository.existsById(user.getId())) {
             User userToUpdate = userRepository.getOne(user.getId());
-            userRepository.save(this.initUser(userToUpdate));
+            userRepository.save(this.initUser(userToUpdate,user));
         } else {
             throw new UsernameNotFoundException("No user with such id");
         }
     }
 
-    public User initUser(User user) {
-        User newUser = new User();
+    public User initUser(User newUser,User user) {
         newUser.setLogin(user.getLogin());
         if (!user.getPassword().isEmpty()) {
             newUser.setPassword(passwordEncoder.encode(user.getPassword()));
