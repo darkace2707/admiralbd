@@ -7,7 +7,10 @@
     <link th:href="@{/css/app.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="users">
+<div class="badge" id="badge2" style="visibility: hidden">Невидимка</div>
+    <a th:href="@{/departures}"  class="button butt-back">Назад</a>
+
+    <div class="users">
     <div class="label list">Список Пользователей:</div>
 
     <div class="user" th:each="user : ${users}">
