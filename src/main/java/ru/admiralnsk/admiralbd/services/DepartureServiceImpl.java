@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.admiralnsk.admiralbd.constants.Constants;
+import ru.admiralnsk.admiralbd.exceptions.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.mappers.Months;
 import ru.admiralnsk.admiralbd.models.*;
 import ru.admiralnsk.admiralbd.parser.ExcelParser;
@@ -139,19 +140,25 @@ public class DepartureServiceImpl implements DepartureService {
     }
 
     @Override
-    public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException {
-        List<Departure> departures = excelParser.readFromExcel(file);
+    public void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException, ExcelNotStructuredException {
 
-        ForkJoinPool myPool = new ForkJoinPool(Constants.PARALLELISM_LEVEL);
-        List<Departure> filteredDepartures =  myPool.submit( () -> departures.parallelStream()
-                .filter(departure -> !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
-                        departure.getDepartureDate(),
-                        departure.getCarriageNumber(),
-                        departure.getDocumentNumber(),
-                        departure.getCargo()))
-                .collect(Collectors.toList())).get();
+        try {
+            List<Departure> departures = excelParser.readFromExcel(file);
+            ForkJoinPool myPool = new ForkJoinPool(Constants.PARALLELISM_LEVEL);
+            List<Departure> filteredDepartures = myPool.submit(() -> departures.parallelStream()
+                    .filter(departure ->
+                            !departureRepository.existsDepartureByDepartureDateAndCarriageNumberAndDocumentNumberAndCargo(
+                            departure.getDepartureDate(),
+                            departure.getCarriageNumber(),
+                            departure.getDocumentNumber(),
+                            departure.getCargo()))
+                    .collect(Collectors.toList())).get();
+            departureRepository.saveAll(filteredDepartures);
+        } catch (ExcelNotStructuredException E) {
+            System.out.println(E.getMessage());
+        }
 
-        departureRepository.saveAll(filteredDepartures);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ru.admiralnsk.admiralbd.services;
 
 import org.springframework.web.multipart.MultipartFile;
+import ru.admiralnsk.admiralbd.exceptions.ExcelNotStructuredException;
 import ru.admiralnsk.admiralbd.models.DeparturesCount;
 import ru.admiralnsk.admiralbd.models.Node;
 
@@ -28,5 +29,5 @@ public interface DepartureService {
 
     List<Node> findOwnersCountTreeByDepartureWayAndConsignor(String departureWay, String consignor);
 
-    void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException;
+    void putDepartures(MultipartFile file) throws IOException, ExecutionException, InterruptedException, ExcelNotStructuredException;
 }
