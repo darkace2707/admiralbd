@@ -83,10 +83,32 @@ class UserServiceImplTests {
     @Test
     public void updateUserTest()
     {
-        User user= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
-        Throwable thrown = assertThrows(UsernameNotFoundException.class, () -> userService.updateUser(user));
+        // test exception
+        User userReturnedFromRepository= new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        Throwable thrown = assertThrows(UsernameNotFoundException.class, () -> userService.updateUser(userReturnedFromRepository));
         Assertions.assertEquals("No user with such id", thrown.getMessage());
+
+        // ordinary test
+        when(userRepository.existsById(userReturnedFromRepository.getId())).thenReturn(true);
+        when(userRepository.getOne(userReturnedFromRepository.getId())).thenReturn(userReturnedFromRepository);
+        User updatedUser=  new User((long)1, "Dima", "Dima","12345", Role.USER, Status.ACTIVE);
+        when(userRepository.save(userService.initUser(userReturnedFromRepository,updatedUser))).thenReturn(updatedUser);
+        User userReturnedFromService = userService.updateUser(updatedUser);
+        Assertions.assertEquals(updatedUser,userReturnedFromService);
+        verify(userRepository, times(1)).save(userReturnedFromRepository);
     }
+
+    @Test
+    public void putUserTest()
+    {
+        User newUser = new User((long)1, "John", "John","12345", Role.USER, Status.ACTIVE);
+        User emptyUser= new User();
+        when(userRepository.save(userService.initUser(emptyUser,newUser))).thenReturn(newUser);
+        User userReturnedFromService = userService.putUser(newUser);
+        Assertions.assertEquals(userReturnedFromService,newUser);
+        verify(userRepository, times(1)).save(userService.initUser(emptyUser,newUser));
+    }
+
 
     @Test
     public void deleteUserTest()

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.admiralnsk.admiralbd.models.Role;
 import ru.admiralnsk.admiralbd.models.User;
 import ru.admiralnsk.admiralbd.repository.UserRepository;
 
@@ -28,16 +27,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void putUser(User user) {
+    public User putUser(User user) {
         User newUser = new User();
-        userRepository.save(this.initUser(newUser,user));
+        return userRepository.save(this.initUser(newUser,user));
     }
 
     @Override
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         if (userRepository.existsById(user.getId())) {
             User userToUpdate = userRepository.getOne(user.getId());
-            userRepository.save(this.initUser(userToUpdate,user));
+           return userRepository.save(this.initUser(userToUpdate,user));
         } else {
             throw new UsernameNotFoundException("No user with such id");
         }
