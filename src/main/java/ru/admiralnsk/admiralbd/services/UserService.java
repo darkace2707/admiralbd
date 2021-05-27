@@ -1,6 +1,5 @@
 package ru.admiralnsk.admiralbd.services;
 
-import ru.admiralnsk.admiralbd.models.Role;
 import ru.admiralnsk.admiralbd.models.User;
 
 import java.util.List;
@@ -10,9 +9,9 @@ public interface UserService {
 
     List<User> findAll();
 
-    void putUser(User user);
+    User putUser(User user);
 
-    void updateUser(User user);
+    User updateUser(User user);
 
     void deleteUserById(Long id);
 }

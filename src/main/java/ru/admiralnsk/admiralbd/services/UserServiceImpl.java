@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.admiralnsk.admiralbd.models.Role;
 import ru.admiralnsk.admiralbd.models.User;
 import ru.admiralnsk.admiralbd.repository.UserRepository;
 
-import java.util.List;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -28,33 +27,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void putUser(User user) {
-        User userToSave = new User();
-        userToSave.setLogin(user.getLogin());
-        userToSave.setPassword(passwordEncoder.encode(user.getPassword()));
-        userToSave.setName(user.getName());
-        userToSave.setRole(user.getRole());
-        userToSave.setStatus(user.getStatus());
-        userRepository.save(userToSave);
+    public User putUser(User user) {
+        User newUser = new User();
+        return userRepository.save(this.initUser(newUser,user));
     }
 
     @Override
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         if (userRepository.existsById(user.getId())) {
             User userToUpdate = userRepository.getOne(user.getId());
-            userToUpdate.setLogin(user.getLogin());
-            if (!user.getPassword().isEmpty()) {
-                userToUpdate.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
-            userToUpdate.setName(user.getName());
-            userToUpdate.setRole(user.getRole());
-            userToUpdate.setStatus(user.getStatus());
-            userRepository.save(userToUpdate);
+           return userRepository.save(this.initUser(userToUpdate,user));
         } else {
             throw new UsernameNotFoundException("No user with such id");
         }
     }
 
+    public User initUser(User newUser,User user) {
+        newUser.setLogin(user.getLogin());
+        if (!user.getPassword().isEmpty()) {
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        newUser.setName(user.getName());
+        newUser.setRole(user.getRole());
+        newUser.setStatus(user.getStatus());
+        return newUser;
+    }
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
