@@ -35,11 +35,12 @@ public class ExcelParserTest {
     @Test
     public void readFromExcel() throws IOException, ExcelNotStructuredException {
         ExcelParser excelParser = new ExcelParser(new DepartureFieldsMapper());
+        // excel1.xlsx src/main/test/resources/TestExcel.xlsx
         MultipartFile file = new MockMultipartFile("TestExcel.xlsx", new FileInputStream("src/main/test/resources/TestExcel.xlsx"));
 
         List<Departure> departureList = this.createDepartures(new ArrayList<>());
         List<Departure> departureListTest = excelParser.readFromExcel(file);
-
+        System.out.println(departureListTest);
         Assert.assertEquals(departureListTest.size(), departureList.size());
         for (int i = 0; i < departureList.size(); i++) {
             Assert.assertEquals(departureListTest.get(i).getDepartureDate(), departureList.get(i).getDepartureDate());

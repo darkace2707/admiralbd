@@ -31,13 +31,15 @@ public class ExcelParser {
         List<Departure> departureList = new ArrayList<>();
         try (Workbook workbook = StreamingReader.builder().rowCacheSize(30).open(is)) {
             for (Sheet sheet : workbook) {
-                if (!(this.isExcelFileStructureRight(Objects.requireNonNull(
-                        StreamSupport.stream(sheet.spliterator(), false).findFirst().orElse(null)
+                if (!(this.isExcelFileStructureRight((
+                        Objects.requireNonNull(StreamSupport.stream(sheet.spliterator(), false)
+                                .findFirst()
+                                .orElse(null))
                 )))) {
                     throw new ExcelNotStructuredException("Incorrect file structure");
                 }
 
-                StreamSupport.stream(sheet.spliterator(), false).skip(1).forEach(row -> {
+                StreamSupport.stream(sheet.spliterator(), false).forEach(row -> {
                     if (this.isDepartureEmpty(row)) return;
                     Departure departure = new Departure();
                     departureFieldsMapper.map(row, departure);
